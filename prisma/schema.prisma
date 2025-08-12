@@ -1,0 +1,292 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  FARMER
+  BUYER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  APPROVED
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+}
+
+enum LoanStatus {
+  PENDING
+  APPROVED
+  DISBURSED
+  REPAID
+  DEFAULTED
+}
+
+enum TransactionType {
+  INPUT_FINANCING
+  PRODUCE_SALE
+  SAVINGS_DEPOSIT
+  LOAN_REPAYMENT
+  INSURANCE_PAYMENT
+}
+
+model User {
+  id                String      @id @default(cuid())
+  email             String      @unique
+  password          String
+  firstName         String
+  lastName          String
+  phoneNumber       String
+  userType          UserType
+  isVerified        Boolean     @default(false)
+  profileImageUrl   String?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relations
+  farmer            Farmer?
+  buyer             Buyer?
+  transactions      Transaction[]
+
+  @@map("users")
+}
+
+model Farmer {
+  id                String      @id @default(cuid())
+  userId            String      @unique
+  farmName          String
+  farmLocation      String
+  farmSize          Float       // in hectares
+  primaryCrops      String[]
+  bankAccountNumber String?
+  bankName          String?
+  ngoPartner        String?     // If supported by NGO/DFI
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relations
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products          Product[]
+  loans             Loan[]
+  orders            Order[]
+  savings           SavingsAccount?
+  insurancePolicies Insurance[]
+
+  @@map("farmers")
+}
+
+model Buyer {
+  id                String      @id @default(cuid())
+  userId            String      @unique
+  companyName       String
+  companyType       String      // FMCG, Exporter, Processor
+  businessAddress   String
+  businessLicense   String?
+  taxId             String?
+  verificationDocs  String[]    // Array of document URLs
+  isVerified        Boolean     @default(false)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relations
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders            Order[]
+  insurancePolicies Insurance[]
+
+  @@map("buyers")
+}
+
+model Product {
+  id                String      @id @default(cuid())
+  farmerId          String
+  name              String
+  description       String?
+  category          String
+  quantity          Float       // in kg or tons
+  unit              String      // kg, tons, etc.
+  pricePerUnit      Float
+  quality           String      // Grade A, B, etc.
+  harvestDate       DateTime?
+  expiryDate        DateTime?
+  images            String[]    // Array of image URLs
+  isAvailable       Boolean     @default(true)
+  location          String      // Storage location
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relations
+  farmer            Farmer      @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+  orderItems        OrderItem[]
+
+  @@map("products")
+}
+
+model Order {
+  id                String      @id @default(cuid())
+  buyerId           String
+  farmerId          String
+  orderNumber       String      @unique
+  status            OrderStatus @default(PENDING)
+  totalAmount       Float
+  deliveryAddress   String
+  deliveryDate      DateTime?
+  notes             String?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relations
+  buyer             Buyer       @relation(fields: [buyerId], references: [id])
+  farmer            Farmer      @relation(fields: [farmerId], references: [id])
+  orderItems        OrderItem[]
+  logistics         Logistics?
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id                String      @id @default(cuid())
+  orderId           String
+  productId         String
+  quantity          Float
+  pricePerUnit      Float
+  totalPrice        Float
+  createdAt         DateTime    @default(now())
+
+  // Relations
+  order             Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product           Product     @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+model Loan {
+  id                String      @id @default(cuid())
+  farmerId          String
+  amount            Float
+  interestRate      Float
+  status            LoanStatus  @default(PENDING)
+  purpose           String      // Input financing, equipment, etc.
+  approvedAt        DateTime?
+  disbursedAt       DateTime?
+  dueDate           DateTime
+  repaidAmount      Float       @default(0)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relations
+  farmer            Farmer      @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+
+  @@map("loans")
+}
+
+model SavingsAccount {
+  id                String      @id @default(cuid())
+  farmerId          String      @unique
+  balance           Float       @default(0)
+  totalSaved        Float       @default(0)
+  savingsRate       Float       @default(10) // Percentage of earnings to save
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relations
+  farmer            Farmer      @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+
+  @@map("savings_accounts")
+}
+
+model Transaction {
+  id                String          @id @default(cuid())
+  userId            String
+  type              TransactionType
+  amount            Float
+  description       String
+  referenceId       String?         // Order ID, Loan ID, etc.
+  status            String          @default("COMPLETED")
+  createdAt         DateTime        @default(now())
+
+  // Relations
+  user              User            @relation(fields: [userId], references: [id])
+
+  @@map("transactions")
+}
+
+model Logistics {
+  id                String      @id @default(cuid())
+  orderId           String      @unique
+  carrierName       String?
+  trackingNumber    String?
+  pickupDate        DateTime?
+  deliveryDate      DateTime?
+  status            String      @default("PENDING")
+  cost              Float?
+  notes             String?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relations
+  order             Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("logistics")
+}
+
+model Insurance {
+  id                String      @id @default(cuid())
+  farmerId          String?
+  buyerId           String?
+  policyType        String      // Crop, Livestock, Logistics, etc.
+  policyNumber      String      @unique
+  coverage          Float
+  premium           Float
+  startDate         DateTime
+  endDate           DateTime
+  isActive          Boolean     @default(true)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relations
+  farmer            Farmer?     @relation(fields: [farmerId], references: [id])
+  buyer             Buyer?      @relation(fields: [buyerId], references: [id])
+
+  @@map("insurance")
+}
+
+model MarketData {
+  id                String      @id @default(cuid())
+  productName       String
+  category          String
+  averagePrice      Float
+  marketLocation    String
+  priceDate         DateTime
+  quality           String?
+  source            String      // Market research, API, etc.
+  createdAt         DateTime    @default(now())
+
+  @@map("market_data")
+}
+
+model WeatherData {
+  id                String      @id @default(cuid())
+  location          String
+  temperature       Float
+  humidity          Float
+  rainfall          Float
+  weatherCondition  String
+  forecast          String?
+  date              DateTime
+  createdAt         DateTime    @default(now())
+
+  @@map("weather_data")
+}

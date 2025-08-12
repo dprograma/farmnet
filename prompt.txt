@@ -1,0 +1,13 @@
+Error: Cannot apply unknown utility class `font-display`
+    [at onInvalidCandidate (/Users/admin/projects/farmnet/node_modules/tailwindcss/dist/lib.js:18:1509)]
+    [at ge (/Users/admin/projects/farmnet/node_modules/tailwindcss/dist/lib.js:13:29803)]
+    [at /Users/admin/projects/farmnet/node_modules/tailwindcss/dist/lib.js:18:373]
+    [at I (/Users/admin/projects/farmnet/node_modules/tailwindcss/dist/lib.js:3:1656)]
+    [at je (/Users/admin/projects/farmnet/node_modules/tailwindcss/dist/lib.js:18:172)]
+    [at bi (/Users/admin/projects/farmnet/node_modules/tailwindcss/dist/lib.js:35:780)]
+    [at async yi (/Users/admin/projects/farmnet/node_modules/tailwindcss/dist/lib.js:35:1123)]
+    [at async _r (/Users/admin/projects/farmnet/node_modules/@tailwindcss/node/dist/index.js:10:3384)]
+    [at async p (/Users/admin/projects/farmnet/node_modules/@tailwindcss/postcss/dist/index.js:10:4019)]
+    [at async Object.Once (/Users/admin/projects/farmnet/node_modules/@tailwindcss/postcss/dist/index.js:10:4290)]
+ ✓ Compiled / in 19.3s
+ GET / 200 in 19840ms
