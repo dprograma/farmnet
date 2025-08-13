@@ -1,1 +1,19 @@
-The farmer and buyer dashboards look archaic. The dashboards do not have a navbar. They don’t have  menus (maybe vertical nabber) with tabs to perform certain things on the dashboard. There’s not profile/account management to update user profile, settings, delete account. There’s visibly no logout button/feature in them.
+Build Error
+
+Parsing css source code failed
+./app/globals.css (1693:36)
+
+Parsing css source code failed
+  1691 | }
+  1692 | .bg-\[url\(\'\/g-\[url\(\'right-side-background\.jpg\'\)\]\'\)\]{
+> 1693 |   background-image: url('/g-[url('right-side-background.jpg')]');
+       |                                    ^
+  1694 | }
+  1695 | .bg-\[url\(\'\/bg-\[url\(\'right-side-background\.jpg\'\)\]\'\)\]{
+  1696 |   background-image: url('/bg-[url('right-side-background.jpg')]');
+
+Unexpected token Ident("right-side-background") at [project]/app/globals.css:1692:35
+
+Import trace:
+  ./app/globals.css [Client Component Browser]
+  ./app/layout.js [Server Component]

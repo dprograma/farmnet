@@ -31,19 +31,19 @@ const Input = forwardRef(({
       
       <div className="relative">
         {Icon && (
-          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <Icon className="h-5 w-5 text-neutral-500" />
-          </div>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+            <Icon className="w-5 h-5" />
+          </span>
         )}
-        
         <motion.input
           ref={ref}
           type={inputType}
           className={cn(
-            'input',
-            Icon && 'pl-12',
+            'w-full rounded-lg border border-neutral-200 focus:border-primary-500 focus:ring-primary-500 transition-all duration-200 py-3',
+            Icon ? 'pl-11' : 'pl-4',
+            'pr-4',
             isPassword && 'pr-12',
-            error && 'input-error',
+            error && 'border-error focus:border-error',
             className
           )}
           onFocus={() => setFocused(true)}
@@ -54,7 +54,6 @@ const Input = forwardRef(({
           transition={{ duration: 0.1 }}
           {...props}
         />
-        
         {isPassword && (
           <button
             type="button"

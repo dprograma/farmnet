@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { FiMail, FiEye, FiEyeOff, FiArrowLeft, FiUser, FiTrendingUp } from 'react-icons/fi';
+import { FiMail, FiArrowLeft, FiUser, FiTrendingUp } from 'react-icons/fi';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
@@ -29,7 +29,6 @@ const fadeInUp = {
 };
 
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (values, { setSubmitting, setFieldError }) => {
     try {
@@ -122,132 +121,119 @@ export default function Login() {
                   {({ values, errors, touched, isSubmitting, setFieldValue }) => (
                     <Form className="space-y-6">
                       {/* User Type Selection */}
-                      <div>
-                        <label className="block text-sm font-semibold text-neutral-700 mb-4">
-                          I am a <span className="text-error">*</span>
-                        </label>
-                        <div className="grid grid-cols-2 gap-4">
-                          <button
-                            type="button"
-                            onClick={() => setFieldValue('userType', 'farmer')}
-                            className={`group p-5 border-2 rounded-2xl text-center transition-all duration-300 hover:scale-105 ${
-                              values.userType === 'farmer'
-                                ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-lg shadow-primary-500/25'
-                                : 'border-neutral-200 hover:border-primary-300 hover:shadow-lg'
-                            }`}
-                          >
-                            <FiUser className={`w-7 h-7 mx-auto mb-3 transition-transform duration-300 group-hover:scale-110 ${
-                              values.userType === 'farmer' ? 'text-primary-600' : 'text-neutral-500'
-                            }`} />
-                            <span className="font-semibold">Farmer</span>
-                            <div className="text-xs text-neutral-500 mt-1">Grow & Sell</div>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setFieldValue('userType', 'buyer')}
-                            className={`group p-5 border-2 rounded-2xl text-center transition-all duration-300 hover:scale-105 ${
-                              values.userType === 'buyer'
-                                ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-lg shadow-primary-500/25'
-                                : 'border-neutral-200 hover:border-primary-300 hover:shadow-lg'
-                            }`}
-                          >
-                            <FiTrendingUp className={`w-7 h-7 mx-auto mb-3 transition-transform duration-300 group-hover:scale-110 ${
-                              values.userType === 'buyer' ? 'text-primary-600' : 'text-neutral-500'
-                            }`} />
-                            <span className="font-semibold">Buyer</span>
-                            <div className="text-xs text-neutral-500 mt-1">Source & Buy</div>
-                          </button>
-                        </div>
-                        {touched.userType && errors.userType && (
-                          <p className="mt-2 text-sm text-error">{errors.userType}</p>
-                        )}
-                      </div>
+                                  <div>
+                                  <label className="block text-sm font-semibold text-neutral-700 mb-4">
+                                    I am a <span className="text-error">*</span>
+                                  </label>
+                                  <div className="grid grid-cols-2 gap-4">
+                                    <button
+                                    type="button"
+                                    onClick={() => setFieldValue('userType', 'farmer')}
+                                    className={`group p-5 border-2 rounded-2xl text-center transition-all duration-300 hover:scale-105 ${
+                                      values.userType === 'farmer'
+                                      ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-lg shadow-primary-500/25'
+                                      : 'border-neutral-200 hover:border-primary-300 hover:shadow-lg'
+                                    }`}
+                                    >
+                                    <FiUser className={`w-7 h-7 mx-auto mb-3 transition-transform duration-300 group-hover:scale-110 ${
+                                      values.userType === 'farmer' ? 'text-primary-600' : 'text-neutral-500'
+                                    }`} />
+                                    <span className="font-semibold">Farmer</span>
+                                    <div className="text-xs text-neutral-500 mt-1">Grow & Sell</div>
+                                    </button>
+                                    <button
+                                    type="button"
+                                    onClick={() => setFieldValue('userType', 'buyer')}
+                                    className={`group p-5 border-2 rounded-2xl text-center transition-all duration-300 hover:scale-105 ${
+                                      values.userType === 'buyer'
+                                      ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-lg shadow-primary-500/25'
+                                      : 'border-neutral-200 hover:border-primary-300 hover:shadow-lg'
+                                    }`}
+                                    >
+                                    <FiTrendingUp className={`w-7 h-7 mx-auto mb-3 transition-transform duration-300 group-hover:scale-110 ${
+                                      values.userType === 'buyer' ? 'text-primary-600' : 'text-neutral-500'
+                                    }`} />
+                                    <span className="font-semibold">Buyer</span>
+                                    <div className="text-xs text-neutral-500 mt-1">Source & Buy</div>
+                                    </button>
+                                  </div>
+                                  {touched.userType && errors.userType && (
+                                    <p className="mt-2 text-sm text-error">{errors.userType}</p>
+                                  )}
+                                  </div>
 
-                      <Field name="email">
-                        {({ field }) => (
-                          <Input
-                            {...field}
-                            label="Email Address"
-                            type="email"
-                            icon={FiMail}
-                            placeholder="Enter your email"
-                            error={touched.email && errors.email}
-                            required
-                          />
-                        )}
-                      </Field>
+                                  <Field name="email">
+                                  {({ field }) => (
+                                    <Input
+                                    {...field}
+                                    label="Email Address"
+                                    type="email"
+                                    icon={FiMail}
+                                    placeholder="Enter your email"
+                                    error={touched.email && errors.email}
+                                    required
+                                    />
+                                  )}
+                                  </Field>
 
-                      <Field name="password">
-                        {({ field }) => (
-                          <div className="relative">
-                            <Input
-                              {...field}
-                              label="Password"
-                              type={showPassword ? 'text' : 'password'}
-                              placeholder="Enter your password"
-                              error={touched.password && errors.password}
-                              required
-                            />
-                            <button
-                              type="button"
-                              onClick={() => setShowPassword(!showPassword)}
-                              className="absolute right-3 top-[38px] text-gray-400 hover:text-gray-600"
-                            >
-                              {showPassword ? (
-                                <FiEyeOff className="w-5 h-5" />
-                              ) : (
-                                <FiEye className="w-5 h-5" />
-                              )}
-                            </button>
-                          </div>
-                        )}
-                      </Field>
+                                  <Field name="password">
+                                  {({ field }) => (
+                                    <Input
+                                    {...field}
+                                    label="Password"
+                                    type="password"
+                                    placeholder="Enter your password"
+                                    error={touched.password && errors.password}
+                                    required
+                                    />
+                                  )}
+                                  </Field>
 
-                      <div className="flex items-center justify-between">
-                        <label className="flex items-center group cursor-pointer">
-                          <input
-                            type="checkbox"
-                            className="rounded-md border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-offset-0 focus:ring-2"
-                          />
-                          <span className="ml-3 text-sm text-neutral-600 group-hover:text-neutral-900 transition-colors">
-                            Remember me
-                          </span>
-                        </label>
-                        <Link
-                          href="/auth/forgot-password"
-                          className="text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors"
-                        >
-                          Forgot password?
-                        </Link>
-                      </div>
+                                  <div className="flex items-center justify-between">
+                                  <label className="flex items-center group cursor-pointer">
+                                    <input
+                                    type="checkbox"
+                                    className="rounded-md border-neutral-300 text-primary-600 focus:ring-primary-500 focus:ring-offset-0 focus:ring-2"
+                                    />
+                                    <span className="ml-3 text-sm text-neutral-600 group-hover:text-neutral-900 transition-colors">
+                                    Remember me
+                                    </span>
+                                  </label>
+                                  <Link
+                                    href="/auth/forgot-password"
+                                    className="text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors"
+                                  >
+                                    Forgot password?
+                                  </Link>
+                                  </div>
 
-                      <Button
-                        type="submit"
-                        loading={isSubmitting}
-                        disabled={isSubmitting}
-                        className="w-full btn-primary shadow-xl hover:shadow-2xl hover:shadow-primary-500/25"
-                        size="lg"
-                      >
-                        Sign In to Farmnet
-                      </Button>
-                    </Form>
-                  )}
-                </Formik>
+                                  <Button
+                                  type="submit"
+                                  loading={isSubmitting}
+                                  disabled={isSubmitting}
+                                  className="w-full btn-primary shadow-xl hover:shadow-2xl hover:shadow-primary-500/25"
+                                  size="lg"
+                                  >
+                                  Sign In to Farmnet
+                                  </Button>
+                                </Form>
+                                )}
+                              </Formik>
 
-                <div className="mt-8 text-center">
-                  <p className="text-neutral-600">
-                    Don't have an account?{' '}
-                    <Link
-                      href="/auth/register"
-                      className="text-primary-600 hover:text-primary-700 font-semibold transition-colors"
-                    >
-                      Sign up here
-                    </Link>
-                  </p>
-                </div>
+                              <div className="mt-8 text-center">
+                                <p className="text-neutral-600">
+                                Don't have an account?{' '}
+                                <Link
+                                  href="/auth/register"
+                                  className="text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+                                >
+                                  Sign up here
+                                </Link>
+                                </p>
+                              </div>
 
-                {/* Demo Credentials */}
-                <div className="mt-6 p-5 bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl border border-primary-100">
+                              {/* Demo Credentials */}
+                {/* <div className="mt-6 p-5 bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl border border-primary-100">
                   <p className="text-sm text-neutral-700 text-center mb-3 font-semibold">
                     🎯 Demo Credentials
                   </p>
@@ -264,7 +250,7 @@ export default function Login() {
                       Password: <span className="font-mono">password123</span>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </CardContent>
             </Card>
           </motion.div>

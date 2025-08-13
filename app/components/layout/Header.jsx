@@ -181,7 +181,12 @@ const Header = () => {
               >
                 Login
               </Link>
-              <Button size="sm">
+              <Button
+                size="sm"
+                onClick={() => {
+                  window.location.href = '/auth/register';
+                }}
+              >
                 Get Started
               </Button>
             </div>

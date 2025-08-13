@@ -325,6 +325,7 @@ export default function Contact() {
                               <Input
                                 {...field}
                                 label="Subject"
+                                icon={FiMessageCircle}
                                 error={touched.subject && errors.subject}
                                 required
                               />

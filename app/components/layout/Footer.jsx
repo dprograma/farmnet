@@ -57,10 +57,10 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h3 className="text-2xl md:text-3xl font-black font-display mb-4">
+              <h3 className="text-2xl md:text-3xl text-gray-400 font-display mb-4">
                 Stay Connected with Farmnet
               </h3>
-              <p className="text-gray-300 text-lg mb-8">
+              <p className="text-gray-600 text-lg mb-8">
                 Get the latest updates on agricultural innovations, market insights, and platform features.
               </p>
               

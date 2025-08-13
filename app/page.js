@@ -124,7 +124,9 @@ export default function Home() {
               variants={fadeInUp}
               className="flex flex-col sm:flex-row gap-4 lg:justify-start justify-center items-center"
             >
-              <Button size="xl" className="btn-primary">
+              <Button size="xl" className="btn-primary" onClick={() => {
+                window.location.href = '/auth/register';
+              }}>
                 Get Started Today
                 <FiArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </Button>
@@ -147,20 +149,29 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="relative">
-                <div className="w-full h-96 lg:h-[500px] bg-gradient-to-br from-primary-100 to-emerald-100 rounded-3xl overflow-hidden shadow-2xl">
+                <div 
+                  className="w-full h-96 lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl relative"
+                  style={{
+                    backgroundImage: "url('/right-side-background.jpg')",
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
+                >
+                  {/* Semi-transparent overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-900/40 via-primary-800/30 to-emerald-900/40"></div>
                   {/* Hero illustration placeholder */}
-                  <div className="w-full h-full flex items-center justify-center relative">
+                  <div className="w-full h-full flex items-center justify-center relative z-10">
                     <div className="text-center">
                       <div className="w-24 h-24 bg-primary-600 rounded-full flex items-center justify-center mb-6 mx-auto">
                         <span className="text-4xl text-white">🌱</span>
                       </div>
-                      <h3 className="text-2xl font-bold text-primary-800 mb-2">Growing Together</h3>
-                      <p className="text-primary-600">Empowering Agricultural Success</p>
+                      <h3 className="text-2xl font-bold text-primary-800 mb-2 [text-shadow:2px_2px_4px_rgba(0,0,0,0.5)]">Growing Together</h3>
+                      <p className="text-primary-600 text-shadow-lg">Empowering Agricultural Success</p>
                     </div>
                     
                     {/* Floating elements */}
                     <motion.div 
-                      className="absolute top-8 right-8 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center"
+                      className="absolute top-8 right-8 w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center z-20"
                       animate={{ y: [-10, 10, -10] }}
                       transition={{ duration: 3, repeat: Infinity }}
                     >
@@ -168,7 +179,7 @@ export default function Home() {
                     </motion.div>
                     
                     <motion.div 
-                      className="absolute bottom-8 left-8 w-12 h-12 bg-secondary-500 rounded-full shadow-lg flex items-center justify-center"
+                      className="absolute bottom-8 left-8 w-12 h-12 bg-secondary-500/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center z-20"
                       animate={{ y: [10, -10, 10] }}
                       transition={{ duration: 4, repeat: Infinity }}
                     >
@@ -387,7 +398,7 @@ export default function Home() {
             >
               <FiUsers className="mr-3 w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
               <div className="text-left">
-                <div className="font-bold text-lg">Join as Farmer</div>
+                <div className="font-bold text-lg" onClick={() => {window.location.href = '/auth/register';}}>Join as Farmer</div>
                 <div className="text-sm opacity-90">Access markets & financing</div>
               </div>
             </Button>
@@ -398,7 +409,7 @@ export default function Home() {
             >
               <FiTrendingUp className="mr-3 w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
               <div className="text-left">
-                <div className="font-bold text-lg">Join as Buyer</div>
+                <div className="font-bold text-lg" onClick={() => {window.location.href = '/auth/register';}}>Join as Buyer</div>
                 <div className="text-sm opacity-90 group-hover:opacity-70">Source quality produce</div>
               </div>
             </Button>
