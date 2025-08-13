@@ -23,7 +23,7 @@ const Input = forwardRef(({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-semibold text-neutral-700 mb-3">
           {label}
           {required && <span className="text-error ml-1">*</span>}
         </label>
@@ -31,8 +31,8 @@ const Input = forwardRef(({
       
       <div className="relative">
         {Icon && (
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Icon className="h-5 w-5 text-gray-400" />
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <Icon className="h-5 w-5 text-neutral-500" />
           </div>
         )}
         
@@ -41,8 +41,8 @@ const Input = forwardRef(({
           type={inputType}
           className={cn(
             'input',
-            Icon && 'pl-10',
-            isPassword && 'pr-10',
+            Icon && 'pl-12',
+            isPassword && 'pr-12',
             error && 'input-error',
             className
           )}
@@ -58,14 +58,14 @@ const Input = forwardRef(({
         {isPassword && (
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center"
+            className="absolute inset-y-0 right-0 pr-4 flex items-center"
             onClick={() => setShowPassword(!showPassword)}
             tabIndex={-1}
           >
             {showPassword ? (
-              <FiEyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
+              <FiEyeOff className="h-5 w-5 text-neutral-400 hover:text-primary-600 transition-colors" />
             ) : (
-              <FiEye className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
+              <FiEye className="h-5 w-5 text-neutral-400 hover:text-primary-600 transition-colors" />
             )}
           </button>
         )}
@@ -78,9 +78,9 @@ const Input = forwardRef(({
           className="mt-1"
         >
           {error ? (
-            <p className="text-sm text-error">{error}</p>
+            <p className="text-sm text-error font-medium">{error}</p>
           ) : (
-            <p className="text-sm text-gray-500">{helperText}</p>
+            <p className="text-sm text-neutral-500">{helperText}</p>
           )}
         </motion.div>
       )}

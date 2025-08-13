@@ -84,90 +84,144 @@ export default function Home() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 hero-bg" />
-        <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-emerald-50 opacity-10" />
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-emerald-50">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-100/30 to-emerald-100/30" />
         
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <motion.div 
-            className="max-w-4xl mx-auto text-center"
-            initial="initial"
-            animate="animate"
-            variants={staggerChildren}
-          >
-            <motion.div variants={fadeInUp} className="mb-6">
-              <Badge variant="primary" size="lg" className="mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+            {/* Left side - Text content */}
+            <motion.div 
+              className="text-center lg:text-left"
+              initial="initial"
+              animate="animate"
+              variants={staggerChildren}
+            >
+            <motion.div variants={fadeInUp} className="mb-8">
+              <Badge variant="primary" size="lg" className="mb-6 shadow-lg">
                 🌾 Agricultural FinTech Platform
               </Badge>
             </motion.div>
             
             <motion.h1 
               variants={fadeInUp}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold font-bold text-gray-900 leading-tight mb-8"
+              className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-neutral-900 leading-tight mb-6"
+              style={{ fontFamily: "'Poppins', sans-serif" }}
             >
               Connecting Farmers to{' '}
-              <span className="text-green-600">Markets</span>,{' '}
-              <span className="text-green-600">Finance</span>, and{' '}
-              <span className="text-green-600">Prosperity</span>
+              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">Markets</span>,{' '}
+              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">Finance</span>, and{' '}
+              <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">Prosperity</span>
             </motion.h1>
             
             <motion.p 
               variants={fadeInUp}
-              className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed"
+              className="text-lg md:text-xl text-neutral-600 mb-8 max-w-2xl lg:max-w-none leading-relaxed"
             >
               We are an Agricultural FinTech company helping smallholder farmers break the debt cycle through access to inputs, markets, and innovative financial services.
             </motion.p>
             
             <motion.div 
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+              className="flex flex-col sm:flex-row gap-4 lg:justify-start justify-center items-center"
             >
-              <Button size="xl" className="group">
+              <Button size="xl" className="btn-primary">
                 Get Started Today
-                <FiArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <FiArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </Button>
               
-              <button className="flex items-center space-x-3 text-gray-700 hover:text-green-600 transition-colors group">
-                <div className="w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center group-hover:shadow-2xl transition-shadow">
-                  <FiPlay className="w-5 h-5 ml-0.5" />
+              <button className="flex items-center space-x-3 text-neutral-700 hover:text-primary-600 transition-all duration-300 group">
+                <div className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center group-hover:shadow-primary-500/25 transform hover:scale-110 transition-all duration-300">
+                  <FiPlay className="w-5 h-5 ml-1 text-primary-600" />
                 </div>
-                <span className="font-medium">Watch Demo</span>
+                <span className="font-semibold">Watch Demo</span>
               </button>
             </motion.div>
             
+            </motion.div>
+            
+            {/* Right side - Hero Image */}
             <motion.div 
-              variants={fadeInUp}
-              className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8"
+              className="relative"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-green-600 mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="text-gray-600 font-medium">
-                    {stat.label}
+              <div className="relative">
+                <div className="w-full h-96 lg:h-[500px] bg-gradient-to-br from-primary-100 to-emerald-100 rounded-3xl overflow-hidden shadow-2xl">
+                  {/* Hero illustration placeholder */}
+                  <div className="w-full h-full flex items-center justify-center relative">
+                    <div className="text-center">
+                      <div className="w-24 h-24 bg-primary-600 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <span className="text-4xl text-white">🌱</span>
+                      </div>
+                      <h3 className="text-2xl font-bold text-primary-800 mb-2">Growing Together</h3>
+                      <p className="text-primary-600">Empowering Agricultural Success</p>
+                    </div>
+                    
+                    {/* Floating elements */}
+                    <motion.div 
+                      className="absolute top-8 right-8 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center"
+                      animate={{ y: [-10, 10, -10] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    >
+                      <span className="text-2xl">📊</span>
+                    </motion.div>
+                    
+                    <motion.div 
+                      className="absolute bottom-8 left-8 w-12 h-12 bg-secondary-500 rounded-full shadow-lg flex items-center justify-center"
+                      animate={{ y: [10, -10, 10] }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                    >
+                      <span className="text-xl">🚚</span>
+                    </motion.div>
                   </div>
                 </div>
-              ))}
+                
+                {/* Background decorations */}
+                <div className="absolute -top-4 -right-4 w-8 h-8 bg-secondary-500 rounded-full opacity-60"></div>
+                <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-primary-500 rounded-full opacity-40"></div>
+              </div>
             </motion.div>
+          </div>
+          
+          {/* Stats moved below hero */}
+          <motion.div 
+            variants={fadeInUp}
+            className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto"
+          >
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-primary-600 mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-neutral-600 font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
           </motion.div>
         </div>
         
         {/* Floating Elements */}
         <motion.div 
-          className="absolute top-20 left-10 w-20 h-20 bg-green-100 rounded-full opacity-60"
+          className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-green-200 to-green-300 rounded-full opacity-20 animate-float"
           animate={{ y: [-20, 20, -20] }}
-          transition={{ duration: 6, repeat: Infinity }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div 
-          className="absolute bottom-32 right-16 w-16 h-16 bg-orange-100 rounded-full opacity-60"
-          animate={{ y: [20, -20, 20] }}
-          transition={{ duration: 4, repeat: Infinity }}
+          className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-emerald-200 to-emerald-300 rounded-full opacity-30 animate-float"
+          animate={{ y: [15, -15, 15] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div 
+          className="absolute bottom-32 right-16 w-28 h-28 bg-gradient-to-br from-green-100 to-green-200 rounded-full opacity-25 animate-float"
+          animate={{ y: [10, -10, 10] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         />
       </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gradient-to-br from-neutral-50 via-white to-primary-50/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
@@ -176,11 +230,11 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="primary" className="mb-4">Our Services</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-bold text-gray-900 mb-6">
+            <Badge variant="primary" className="mb-6 animate-bounce-subtle">Our Services</Badge>
+            <h2 className="heading-section mb-6">
               Comprehensive Agricultural Solutions
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
               From input financing to market access, we provide end-to-end solutions that transform agricultural value chains.
             </p>
           </motion.div>
@@ -194,24 +248,26 @@ export default function Home() {
           >
             {services.map((service, index) => (
               <motion.div key={index} variants={fadeInUp}>
-                <Card hover className="h-full group">
+                <Card className="h-full group card-hover interactive-glow">
                   <CardContent className="p-8">
-                    <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-200 transition-colors">
-                      <service.icon className="w-7 h-7 text-green-600" />
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary-100 to-primary-200 rounded-2xl flex items-center justify-center mb-6 group-hover:from-primary-200 group-hover:to-primary-300 transition-all duration-300 animate-bounce-subtle">
+                      <service.icon className="w-8 h-8 text-primary-600 group-hover:scale-110 transition-transform duration-300" />
                     </div>
                     
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-xl font-bold text-neutral-900 mb-4 group-hover:text-primary-700 transition-colors">
                       {service.title}
                     </h3>
                     
-                    <p className="text-gray-600 mb-6 leading-relaxed">
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
                       {service.description}
                     </p>
                     
-                    <ul className="space-y-2">
+                    <ul className="space-y-3">
                       {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center space-x-2 text-sm text-gray-600">
-                          <FiCheck className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <li key={idx} className="flex items-center space-x-3 text-sm text-neutral-600">
+                          <div className="w-5 h-5 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <FiCheck className="w-3 h-3 text-white" />
+                          </div>
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -235,10 +291,10 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <Badge variant="secondary" className="mb-4">How It Works</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-bold text-gray-900 mb-6">
+            <h2 className="heading-section mb-6">
               Simple Steps to Success
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
               Our streamlined process makes it easy for farmers and buyers to connect, transact, and grow together.
             </p>
           </motion.div>
@@ -269,13 +325,13 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
               >
-                <div className="w-16 h-16 bg-green-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold font-bold mx-auto mb-6">
+                <div className="w-16 h-16 bg-primary-600 text-white rounded-2xl flex items-center justify-center text-2xl font-display font-bold mx-auto mb-6">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl font-bold text-neutral-900 mb-4">
                   {item.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-neutral-600 leading-relaxed">
                   {item.description}
                 </p>
               </motion.div>
@@ -285,42 +341,105 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-green-600 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-emerald-50 opacity-10" />
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-24 bg-gradient-to-br from-neutral-900 via-neutral-800 to-primary-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.1),transparent_70%)]" />
+        <div className="absolute inset-0 bg-hero-pattern opacity-5" />
+        
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-bold text-white mb-6">
-              Ready to Transform Your Agricultural Business?
-            </h2>
-            <p className="text-xl text-green-100 mb-10 max-w-2xl mx-auto">
-              Join thousands of farmers and buyers who are already benefiting from our comprehensive agricultural ecosystem.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-block"
+            >
+              <Badge variant="primary" className="mb-6 bg-primary-500/20 text-primary-300 border border-primary-500/30">
+                🚀 Join the Revolution
+              </Badge>
+            </motion.div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                variant="secondary" 
-                size="xl"
-                className="bg-white text-green-600 hover:bg-green-50"
-              >
-                <FiUsers className="mr-2 w-5 h-5" />
-                Join as Farmer
-              </Button>
-              <Button 
-                variant="outline" 
-                size="xl"
-                className="border-white text-white hover:bg-white hover:text-green-600"
-              >
-                <FiTrendingUp className="mr-2 w-5 h-5" />
-                Join as Buyer
-              </Button>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight">
+              Ready to <span className="text-gradient bg-gradient-to-r from-primary-400 to-emerald-400 bg-clip-text text-transparent">Transform</span> Your
+              <br />Agricultural Business?
+            </h2>
+            <p className="text-lg md:text-xl text-neutral-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+              Join thousands of farmers and buyers who are already benefiting from our comprehensive agricultural ecosystem and innovative solutions.
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <Button 
+              size="xl"
+              className="group bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white border-0 shadow-xl hover:shadow-2xl hover:shadow-primary-500/25 transform hover:scale-105 transition-all duration-300 py-4 px-8"
+            >
+              <FiUsers className="mr-3 w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+              <div className="text-left">
+                <div className="font-bold text-lg">Join as Farmer</div>
+                <div className="text-sm opacity-90">Access markets & financing</div>
+              </div>
+            </Button>
+            
+            <Button 
+              size="xl"
+              className="group bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white hover:bg-white hover:text-neutral-900 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 py-4 px-8"
+            >
+              <FiTrendingUp className="mr-3 w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+              <div className="text-left">
+                <div className="font-bold text-lg">Join as Buyer</div>
+                <div className="text-sm opacity-90 group-hover:opacity-70">Source quality produce</div>
+              </div>
+            </Button>
+          </motion.div>
+          
+          {/* Trust indicators */}
+          <motion.div 
+            className="mt-16 flex flex-wrap justify-center items-center gap-8 opacity-60"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.6 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">10,000+</div>
+              <div className="text-sm text-neutral-400">Active Users</div>
+            </div>
+            <div className="w-px h-8 bg-white/20"></div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">₦2.5B+</div>
+              <div className="text-sm text-neutral-400">Processed</div>
+            </div>
+            <div className="w-px h-8 bg-white/20"></div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">85%</div>
+              <div className="text-sm text-neutral-400">Income Increase</div>
             </div>
           </motion.div>
         </div>
+        
+        {/* Subtle floating elements */}
+        <motion.div 
+          className="absolute top-20 left-20 w-20 h-20 bg-primary-500/10 rounded-full blur-xl"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div 
+          className="absolute bottom-20 right-20 w-16 h-16 bg-emerald-500/10 rounded-full blur-xl"
+          animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.1, 0.2] }}
+          transition={{ duration: 6, repeat: Infinity }}
+        />
       </section>
 
       <Footer />

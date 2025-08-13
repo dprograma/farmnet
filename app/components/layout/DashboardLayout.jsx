@@ -61,7 +61,7 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30">
       {/* Mobile sidebar overlay */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -82,116 +82,158 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
           x: sidebarOpen ? 0 : '-100%'
         }}
         transition={{ type: 'tween', duration: 0.3 }}
-        className="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl lg:translate-x-0 lg:static lg:inset-0"
+        className="fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-white to-neutral-50 shadow-2xl border-r border-neutral-200/50 lg:translate-x-0 lg:static lg:inset-0"
       >
         <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-green-600 to-green-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">F</span>
+          <div className="flex items-center justify-between p-6 border-b border-neutral-200/50">
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="w-10 h-10 bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+                <span className="text-white font-bold text-lg">F</span>
               </div>
-              <span className="text-xl font-bold font-bold text-green-600">
+              <span className="text-xl font-black font-display text-primary-600">
                 Farmnet
               </span>
             </Link>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden p-1 rounded-lg text-gray-500 hover:bg-gray-100"
+              className="lg:hidden p-2 rounded-xl text-neutral-500 hover:bg-neutral-100 transition-colors"
             >
               <FiX className="w-5 h-5" />
             </button>
           </div>
 
           {/* User Info */}
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center">
-                <span className="text-white font-medium text-sm">
-                  {user.name.charAt(0)}
-                </span>
+          <div className="p-6 border-b border-neutral-200/50">
+            <Link href={`/dashboard/${userType}/profile`} className="group">
+              <div className="flex items-center space-x-4 p-3 rounded-xl bg-gradient-to-r from-primary-50 to-primary-100/50 group-hover:from-primary-100 group-hover:to-primary-200/50 transition-all duration-300">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+                  <span className="text-white font-semibold text-lg">
+                    {user.name.charAt(0)}
+                  </span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-neutral-900 truncate group-hover:text-primary-700 transition-colors">
+                    {user.name}
+                  </p>
+                  <p className="text-xs text-neutral-500 truncate">
+                    {user.email}
+                  </p>
+                </div>
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
-                  {user.name}
-                </p>
-                <p className="text-xs text-gray-500 truncate">
-                  {user.email}
-                </p>
+            </Link>
+            <div className="mt-3 flex items-center justify-between">
+              <Badge
+                variant={userType === 'farmer' ? 'success' : 'info'}
+                size="sm"
+                className="font-medium"
+              >
+                {userType === 'farmer' ? '🌾 Farmer' : '🏢 Buyer'}
+              </Badge>
+              <div className="flex items-center space-x-1">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-xs text-green-600 font-medium">Online</span>
               </div>
             </div>
-            <Badge
-              variant={userType === 'farmer' ? 'success' : 'info'}
-              size="sm"
-              className="mt-3"
-            >
-              {userType === 'farmer' ? 'Farmer' : 'Buyer'}
-            </Badge>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-1">
+          <nav className="flex-1 p-6 space-y-2">
+            <div className="mb-4">
+              <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-3">
+                Main Menu
+              </h3>
+            </div>
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  'flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                  'group flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200',
                   isActive(item.href)
-                    ? 'bg-green-50 text-green-700 border-r-2 border-green-600'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg shadow-primary-500/25'
+                    : 'text-neutral-700 hover:bg-primary-50 hover:text-primary-700'
                 )}
                 onClick={() => setSidebarOpen(false)}
               >
-                <item.icon className="w-5 h-5" />
-                <span>{item.name}</span>
+                <item.icon className={cn(
+                  'w-5 h-5 transition-transform duration-200',
+                  isActive(item.href) 
+                    ? 'text-white' 
+                    : 'text-neutral-500 group-hover:text-primary-600 group-hover:scale-110'
+                )} />
+                <span className="group-hover:translate-x-1 transition-transform duration-200">
+                  {item.name}
+                </span>
+                {isActive(item.href) && (
+                  <div className="ml-auto w-2 h-2 bg-white rounded-full animate-pulse" />
+                )}
               </Link>
             ))}
           </nav>
 
           {/* Logout */}
-          <div className="p-4 border-t border-gray-200">
+          <div className="p-6 border-t border-neutral-200/50">
             <Button
               variant="ghost"
-              className="w-full justify-start text-gray-700"
+              className="w-full justify-start text-neutral-700 hover:bg-red-50 hover:text-red-600 transition-all duration-200 rounded-xl py-3"
               onClick={() => {
-                // Handle logout
-                window.location.href = '/auth/login';
+                // Handle logout with confirmation
+                if (confirm('Are you sure you want to logout?')) {
+                  window.location.href = '/auth/login';
+                }
               }}
             >
-              <FiLogOut className="w-4 h-4 mr-3" />
-              Logout
+              <FiLogOut className="w-5 h-5 mr-3" />
+              <span className="font-medium">Logout</span>
             </Button>
           </div>
         </div>
       </motion.aside>
 
       {/* Main content */}
-      <div className="lg:pl-64">
+      <div className="lg:pl-72">
         {/* Top bar */}
-        <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
-          <div className="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <header className="bg-white/80 backdrop-blur-sm shadow-lg border-b border-neutral-200/50 sticky top-0 z-30">
+          <div className="flex items-center justify-between px-6 py-4">
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100"
+                className="lg:hidden p-2 rounded-xl text-neutral-500 hover:bg-primary-50 hover:text-primary-600 transition-all duration-200"
               >
                 <FiMenu className="w-5 h-5" />
               </button>
-              <h1 className="text-xl font-semibold text-gray-900">
-                {userType === 'farmer' ? 'Farmer Dashboard' : 'Buyer Dashboard'}
-              </h1>
+              <div>
+                <h1 className="text-xl font-black font-display text-neutral-900">
+                  {userType === 'farmer' ? 'Farmer Dashboard' : 'Buyer Dashboard'}
+                </h1>
+                <p className="text-sm text-neutral-500">
+                  Welcome back! Here's what's happening with your account today.
+                </p>
+              </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <button className="relative p-2 rounded-lg text-gray-500 hover:bg-gray-100">
-                <FiBell className="w-5 h-5" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              {/* Search */}
+              <div className="hidden md:block relative">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-64 pl-10 pr-4 py-2 border border-neutral-200 rounded-xl bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
+                />
+                <FiMenu className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neutral-400" />
+              </div>
+              
+              {/* Notifications */}
+              <button className="relative p-3 rounded-xl text-neutral-500 hover:bg-primary-50 hover:text-primary-600 transition-all duration-200 group">
+                <FiBell className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+                <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
               </button>
               
-              <Link href={`/dashboard/${userType}/profile`}>
-                <div className="w-8 h-8 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center cursor-pointer">
-                  <span className="text-white font-medium text-sm">
+              {/* Profile dropdown trigger */}
+              <Link href={`/dashboard/${userType}/profile`} className="group">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center cursor-pointer shadow-lg group-hover:scale-105 transition-all duration-200">
+                  <span className="text-white font-semibold text-sm">
                     {user.name.charAt(0)}
                   </span>
                 </div>
@@ -201,8 +243,10 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
         </header>
 
         {/* Page content */}
-        <main className="p-4 sm:p-6 lg:p-8">
-          {children}
+        <main className="p-6 lg:p-8">
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
         </main>
       </div>
     </div>

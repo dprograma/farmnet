@@ -46,7 +46,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Newsletter Section */}
         <div className="py-12 border-b border-gray-800">
@@ -57,7 +57,7 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h3 className="text-2xl md:text-3xl font-bold font-bold mb-4">
+              <h3 className="text-2xl md:text-3xl font-black font-display mb-4">
                 Stay Connected with Farmnet
               </h3>
               <p className="text-gray-300 text-lg mb-8">
@@ -68,9 +68,9 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="flex-1 px-4 py-3 rounded-xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-600 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                 />
-                <Button className="sm:px-6">
+                <Button className="btn-primary sm:px-6">
                   Subscribe
                   <FiArrowRight className="ml-2 w-4 h-4" />
                 </Button>
