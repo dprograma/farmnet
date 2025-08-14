@@ -1,19 +1,47 @@
 Build Error
 
-Parsing css source code failed
-./app/globals.css (1693:36)
+Export FiSeed doesn't exist in target module
+./app/farmers/inputs/page.jsx (4:1)
 
-Parsing css source code failed
-  1691 | }
-  1692 | .bg-\[url\(\'\/g-\[url\(\'right-side-background\.jpg\'\)\]\'\)\]{
-> 1693 |   background-image: url('/g-[url('right-side-background.jpg')]');
-       |                                    ^
-  1694 | }
-  1695 | .bg-\[url\(\'\/bg-\[url\(\'right-side-background\.jpg\'\)\]\'\)\]{
-  1696 |   background-image: url('/bg-[url('right-side-background.jpg')]');
+Export FiSeed doesn't exist in target module
+   2 | import { useState } from 'react';
+   3 | import { motion } from 'framer-motion';
+>  4 | import { 
+     | ^^^^^^^^^
+>  5 |   FiSeed, 
+     | ^^^^^^^^^^
+>  6 |   FiTruck, 
+     | ^^^^^^^^^^
+>  7 |   FiDollarSign, 
+     | ^^^^^^^^^^
+>  8 |   FiCalendar, 
+     | ^^^^^^^^^^
+>  9 |   FiCheck, 
+     | ^^^^^^^^^^
+> 10 |   FiShield,
+     | ^^^^^^^^^^
+> 11 |   FiClock,
+     | ^^^^^^^^^^
+> 12 |   FiMapPin
+     | ^^^^^^^^^^
+> 13 | } from 'react-icons/fi';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import Header from '../../components/layout/Header';
+  15 | import Footer from '../../components/layout/Footer';
+  16 | import Button from '../../components/ui/Button';
 
-Unexpected token Ident("right-side-background") at [project]/app/globals.css:1692:35
+The export FiSeed was not found in module [project]/node_modules/react-icons/fi/index.mjs [app-client] (ecmascript).
+Did you mean to import FiSend?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
 
-Import trace:
-  ./app/globals.css [Client Component Browser]
-  ./app/layout.js [Server Component]
+Import traces:
+  Client Component Browser:
+    ./app/farmers/inputs/page.jsx [Client Component Browser]
+    ./app/farmers/inputs/page.jsx [Server Component]
+
+  Client Component SSR:
+    ./app/farmers/inputs/page.jsx [Client Component SSR]
+    ./app/farmers/inputs/page.jsx [Server Component]
+
+1
+2

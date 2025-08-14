@@ -62,7 +62,9 @@ const Header = () => {
         { name: 'Storage Solutions', href: '/services/storage' },
         { name: 'Quality Control', href: '/services/quality' },
         { name: 'Data & Analytics', href: '/services/data' },
-        { name: 'Insurance', href: '/services/insurance' }
+        { name: 'Insurance', href: '/services/insurance' },
+        { name: 'Logistics service', href: '/services/logistics' },
+        { name: 'Savings Scheme', href: '/services/savings' }
       ]
     },
     { name: 'About', href: '/about' },
