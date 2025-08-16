@@ -30,7 +30,7 @@ const GetFinancingPage = () => {
       description: 'Perfect for seed, fertilizer, and labor costs',
       rate: '12% p.a.',
       term: '3-9 months',
-      amount: 'KSh 10,000 - 500,000',
+      amount: '₦10,000 - 500,000',
       features: ['No collateral required', 'Quick approval', 'Flexible repayment']
     },
     {
@@ -39,7 +39,7 @@ const GetFinancingPage = () => {
       description: 'Finance tractors, irrigation systems, and tools',
       rate: '15% p.a.',
       term: '12-36 months',
-      amount: 'KSh 50,000 - 2,000,000',
+      amount: '₦50,000 - 2,000,000',
       features: ['Equipment as collateral', 'Extended terms', 'Maintenance support']
     },
     {
@@ -48,7 +48,7 @@ const GetFinancingPage = () => {
       description: 'Grow your operations with long-term capital',
       rate: '18% p.a.',
       term: '12-60 months',
-      amount: 'KSh 100,000 - 5,000,000',
+      amount: '₦100,000 - 5,000,000',
       features: ['Business plan support', 'Mentorship program', 'Growth tracking']
     }
   ];
@@ -134,7 +134,7 @@ const GetFinancingPage = () => {
     {
       name: 'Joseph Kiprotich',
       location: 'Nakuru County',
-      loanAmount: 'KSh 150,000',
+      loanAmount: '₦150,000',
       purpose: 'Greenhouse construction',
       image: '/api/placeholder/64/64',
       result: 'Increased income by 300% in one year',
@@ -143,7 +143,7 @@ const GetFinancingPage = () => {
     {
       name: 'Grace Wanjiru',
       location: 'Murang\'a County',
-      loanAmount: 'KSh 75,000',
+      loanAmount: '₦75,000',
       purpose: 'Coffee processing equipment',
       image: '/api/placeholder/64/64',
       result: 'Direct export to international buyers',
@@ -152,10 +152,10 @@ const GetFinancingPage = () => {
     {
       name: 'Daniel Ochieng',
       location: 'Kisii County',
-      loanAmount: 'KSh 200,000',
+      loanAmount: '₦200,000',
       purpose: 'Dairy cow purchase',
       image: '/api/placeholder/64/64',
-      result: 'Monthly income of KSh 45,000',
+      result: 'Monthly income of ₦45,000',
       crop: 'Dairy farming'
     }
   ];
@@ -219,7 +219,7 @@ const GetFinancingPage = () => {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Loan Amount: KSh {loanAmount.toLocaleString()}
+                      Loan Amount: ₦{loanAmount.toLocaleString()}
                     </label>
                     <input
                       type="range"
@@ -244,7 +244,7 @@ const GetFinancingPage = () => {
                   <div className="pt-4 border-t border-gray-200">
                     <div className="text-center">
                       <p className="text-sm text-gray-600">Estimated Monthly EMI</p>
-                      <p className="text-2xl font-bold text-blue-600">KSh {estimatedEMI.toLocaleString()}</p>
+                      <p className="text-2xl font-bold text-blue-600">₦{estimatedEMI.toLocaleString()}</p>
                     </div>
                   </div>
                 </div>

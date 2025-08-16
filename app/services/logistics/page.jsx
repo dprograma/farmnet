@@ -31,7 +31,7 @@ const LogisticsServicePage = () => {
       icon: FiPackage,
       coverage: 'Urban & Rural Areas',
       timeframe: '4-24 hours',
-      pricing: 'KSh 200-800',
+      pricing: '₦200-800',
       features: [
         'Door-to-door delivery',
         'Real-time tracking',
@@ -46,7 +46,7 @@ const LogisticsServicePage = () => {
       icon: FiThermometer,
       coverage: 'Nationwide',
       timeframe: '2-48 hours',
-      pricing: 'KSh 500-2000',
+      pricing: '₦500-2000',
       features: [
         'Temperature monitoring',
         'Refrigerated vehicles',
@@ -61,7 +61,7 @@ const LogisticsServicePage = () => {
       icon: FiTruck,
       coverage: 'East Africa Region',
       timeframe: '1-7 days',
-      pricing: 'KSh 10-50/kg',
+      pricing: '₦10-50/kg',
       features: [
         'High capacity trucks',
         'Bulk loading equipment',
@@ -76,7 +76,7 @@ const LogisticsServicePage = () => {
       icon: FiMapPin,
       coverage: 'Major Cities',
       timeframe: 'Flexible',
-      pricing: 'KSh 5-20/kg/month',
+      pricing: '₦5-20/kg/month',
       features: [
         'Strategic locations',
         'Inventory management',

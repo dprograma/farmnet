@@ -39,7 +39,7 @@ const LogisticsPage = () => {
         'Premium handling'
       ],
       coverage: 'Nairobi, Mombasa, Kisumu',
-      pricing: 'From KSh 300',
+      pricing: 'From ₦300',
       availability: 'Mon-Sat, 6AM-8PM'
     },
     {
@@ -54,7 +54,7 @@ const LogisticsPage = () => {
         'Export standards'
       ],
       coverage: 'Nationwide + Ports',
-      pricing: 'From KSh 500',
+      pricing: 'From ₦500',
       availability: '24/7 availability'
     },
     {
@@ -69,7 +69,7 @@ const LogisticsPage = () => {
         'Loading/unloading support'
       ],
       coverage: 'East Africa Region',
-      pricing: 'From KSh 15/kg',
+      pricing: 'From ₦15/kg',
       availability: 'Scheduled routes'
     },
     {
@@ -84,7 +84,7 @@ const LogisticsPage = () => {
         'Receipt confirmation'
       ],
       coverage: 'Urban & Peri-urban',
-      pricing: 'From KSh 200',
+      pricing: 'From ₦200',
       availability: 'Mon-Sun, 6AM-10PM'
     }
   ];

@@ -37,9 +37,9 @@ const StoragePage = () => {
       types: ['Cold Storage', 'Dry Storage', 'Controlled Atmosphere'],
       services: ['Sorting', 'Packaging', 'Quality Testing'],
       rates: {
-        cold: 'KSh 8/kg/month',
-        dry: 'KSh 3/kg/month',
-        ca: 'KSh 12/kg/month'
+            cold: '₦8/kg/month',
+    dry: '₦3/kg/month',
+    ca: '₦12/kg/month'
       },
       occupancy: 85,
       image: '/api/placeholder/400/250'
@@ -53,8 +53,8 @@ const StoragePage = () => {
       types: ['Cold Storage', 'Export Warehouse'],
       services: ['Export Documentation', 'Container Loading', 'Fumigation'],
       rates: {
-        cold: 'KSh 10/kg/month',
-        export: 'KSh 15/kg/month'
+            cold: '₦10/kg/month',
+    export: '₦15/kg/month'
       },
       occupancy: 72,
       image: '/api/placeholder/400/250'
@@ -68,8 +68,8 @@ const StoragePage = () => {
       types: ['Dry Storage', 'Grain Silos'],
       services: ['Drying', 'Cleaning', 'Bagging'],
       rates: {
-        dry: 'KSh 2.5/kg/month',
-        silo: 'KSh 4/kg/month'
+            dry: '₦2.5/kg/month',
+    silo: '₦4/kg/month'
       },
       occupancy: 91,
       image: '/api/placeholder/400/250'
@@ -90,7 +90,7 @@ const StoragePage = () => {
         'Ethylene gas control',
         'Ripening chambers'
       ],
-      pricing: 'KSh 8-15/kg/month'
+      pricing: '₦8-15/kg/month'
     },
     {
       type: 'Controlled Atmosphere',
@@ -105,7 +105,7 @@ const StoragePage = () => {
         'Extended shelf life',
         'Premium quality maintenance'
       ],
-      pricing: 'KSh 12-20/kg/month'
+      pricing: '₦12-20/kg/month'
     },
     {
       type: 'Dry Storage',
@@ -120,7 +120,7 @@ const StoragePage = () => {
         'Fumigation services',
         'Quality preservation'
       ],
-      pricing: 'KSh 2-5/kg/month'
+      pricing: '₦2-5/kg/month'
     },
     {
       type: 'Grain Silos',
@@ -135,7 +135,7 @@ const StoragePage = () => {
         'Quality monitoring',
         'Bulk loading/unloading'
       ],
-      pricing: 'KSh 3-6/kg/month'
+      pricing: '₦3-6/kg/month'
     }
   ];
 

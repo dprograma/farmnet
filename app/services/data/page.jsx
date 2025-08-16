@@ -37,7 +37,7 @@ const DataAnalyticsPage = () => {
         'Competitor analysis',
         'Seasonal trend analysis'
       ],
-      pricing: 'KSh 5,000/month'
+      pricing: '₦5,000/month'
     },
     {
       id: 'farm',
@@ -50,7 +50,7 @@ const DataAnalyticsPage = () => {
         'Cost analysis',
         'ROI tracking'
       ],
-      pricing: 'KSh 8,000/month'
+      pricing: '₦8,000/month'
     },
     {
       id: 'weather',
@@ -63,7 +63,7 @@ const DataAnalyticsPage = () => {
         'Planting recommendations',
         'Irrigation scheduling'
       ],
-      pricing: 'KSh 3,000/month'
+      pricing: '₦3,000/month'
     },
     {
       id: 'supply',
@@ -76,14 +76,14 @@ const DataAnalyticsPage = () => {
         'Demand planning',
         'Loss reduction analysis'
       ],
-      pricing: 'KSh 10,000/month'
+      pricing: '₦10,000/month'
     }
   ];
 
   const dashboardMetrics = [
     {
       title: 'Market Prices',
-      value: 'KSh 85/kg',
+      value: '₦85/kg',
       change: '+12.5%',
       trend: 'up',
       icon: FiDollarSign,

@@ -22,12 +22,12 @@ const SellProducePage = () => {
   const [activeTab, setActiveTab] = useState('marketplace');
 
   const marketPrices = [
-    { crop: 'Maize', price: 'KSh 45/kg', change: '+5.2%', trend: 'up' },
-    { crop: 'Beans', price: 'KSh 120/kg', change: '+2.8%', trend: 'up' },
-    { crop: 'Tomatoes', price: 'KSh 80/kg', change: '-1.5%', trend: 'down' },
-    { crop: 'Onions', price: 'KSh 60/kg', change: '+8.1%', trend: 'up' },
-    { crop: 'Potatoes', price: 'KSh 35/kg', change: '+3.4%', trend: 'up' },
-    { crop: 'Cabbage', price: 'KSh 25/kg', change: '-0.8%', trend: 'down' }
+    { crop: 'Maize', price: '₦45/kg', change: '+5.2%', trend: 'up' },
+    { crop: 'Beans', price: '₦120/kg', change: '+2.8%', trend: 'up' },
+    { crop: 'Tomatoes', price: '₦80/kg', change: '-1.5%', trend: 'down' },
+    { crop: 'Onions', price: '₦60/kg', change: '+8.1%', trend: 'up' },
+    { crop: 'Potatoes', price: '₦35/kg', change: '+3.4%', trend: 'up' },
+    { crop: 'Cabbage', price: '₦25/kg', change: '-0.8%', trend: 'down' }
   ];
 
   const sellingSteps = [
@@ -68,7 +68,7 @@ const SellProducePage = () => {
       crop: 'Tomatoes',
       image: '/api/placeholder/64/64',
       testimonial: 'I sold my tomatoes for 30% higher than the local market price. Farmnet connected me directly with buyers in Nairobi.',
-      earnings: 'KSh 145,000',
+      earnings: '₦145,000',
       rating: 5
     },
     {
@@ -77,7 +77,7 @@ const SellProducePage = () => {
       crop: 'Maize',
       image: '/api/placeholder/64/64',
       testimonial: 'The platform helped me bypass middlemen and sell directly to a milling company. Payment was instant!',
-      earnings: 'KSh 89,500',
+      earnings: '₦89,500',
       rating: 5
     },
     {
@@ -86,7 +86,7 @@ const SellProducePage = () => {
       crop: 'French Beans',
       image: '/api/placeholder/64/64',
       testimonial: 'Export opportunities opened up through Farmnet. I now supply French beans to international buyers.',
-      earnings: 'KSh 230,000',
+      earnings: '₦230,000',
       rating: 5
     }
   ];

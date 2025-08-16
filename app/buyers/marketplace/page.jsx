@@ -47,8 +47,8 @@ const BrowseProductsPage = () => {
       location: 'Kiambu County',
       farmerImage: '/api/placeholder/40/40',
       productImage: '/api/placeholder/300/200',
-      price: 'KSh 80/kg',
-      originalPrice: 'KSh 95/kg',
+          price: '₦80/kg',
+    originalPrice: '₦95/kg',
       quantity: '500 kg available',
       rating: 4.8,
       reviews: 24,
@@ -67,8 +67,8 @@ const BrowseProductsPage = () => {
       location: 'Machakos County',
       farmerImage: '/api/placeholder/40/40',
       productImage: '/api/placeholder/300/200',
-      price: 'KSh 120/kg',
-      originalPrice: 'KSh 140/kg',
+          price: '₦120/kg',
+    originalPrice: '₦140/kg',
       quantity: '800 kg available',
       rating: 4.9,
       reviews: 18,
@@ -87,8 +87,8 @@ const BrowseProductsPage = () => {
       location: 'Murang\'a County',
       farmerImage: '/api/placeholder/40/40',
       productImage: '/api/placeholder/300/200',
-      price: 'KSh 15/piece',
-      originalPrice: 'KSh 18/piece',
+          price: '₦15/piece',
+    originalPrice: '₦18/piece',
       quantity: '2000 pieces available',
       rating: 4.7,
       reviews: 31,
@@ -107,8 +107,8 @@ const BrowseProductsPage = () => {
       location: 'Uasin Gishu County',
       farmerImage: '/api/placeholder/40/40',
       productImage: '/api/placeholder/300/200',
-      price: 'KSh 45/kg',
-      originalPrice: 'KSh 52/kg',
+          price: '₦45/kg',
+    originalPrice: '₦52/kg',
       quantity: '2.5 tonnes available',
       rating: 4.6,
       reviews: 42,
@@ -127,8 +127,8 @@ const BrowseProductsPage = () => {
       location: 'Nyeri County',
       farmerImage: '/api/placeholder/40/40',
       productImage: '/api/placeholder/300/200',
-      price: 'KSh 180/kg',
-      originalPrice: 'KSh 200/kg',
+          price: '₦180/kg',
+    originalPrice: '₦200/kg',
       quantity: '300 kg available',
       rating: 4.9,
       reviews: 16,
@@ -147,8 +147,8 @@ const BrowseProductsPage = () => {
       location: 'Nakuru County',
       farmerImage: '/api/placeholder/40/40',
       productImage: '/api/placeholder/300/200',
-      price: 'KSh 25/bunch',
-      originalPrice: 'KSh 30/bunch',
+          price: '₦25/bunch',
+    originalPrice: '₦30/bunch',
       quantity: '500 bunches available',
       rating: 4.8,
       reviews: 12,
@@ -332,10 +332,10 @@ const BrowseProductsPage = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
                   <select className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <option value="">Any Price</option>
-                    <option value="0-50">KSh 0 - 50</option>
-                    <option value="50-100">KSh 50 - 100</option>
-                    <option value="100-200">KSh 100 - 200</option>
-                    <option value="200+">KSh 200+</option>
+                                <option value="0-50">₦0 - 50</option>
+            <option value="50-100">₦50 - 100</option>
+            <option value="100-200">₦100 - 200</option>
+            <option value="200+">₦200+</option>
                   </select>
                 </div>
                 

@@ -30,7 +30,7 @@ const SavingsScheme = () => {
       description: 'Save a portion of your harvest income for the next planting season',
       icon: FiSave,
       interestRate: '12% p.a.',
-      minAmount: 'KSh 5,000',
+      minAmount: '₦5,000',
       features: [
         'Seasonal saving cycles',
         'Automatic deductions',
@@ -50,7 +50,7 @@ const SavingsScheme = () => {
       description: 'Community-based savings with your fellow farmers',
       icon: FiUsers,
       interestRate: '10% p.a.',
-      minAmount: 'KSh 2,000',
+      minAmount: '₦2,000',
       features: [
         'Group savings circles',
         'Peer support and accountability',
@@ -70,7 +70,7 @@ const SavingsScheme = () => {
       description: 'Save for specific agricultural goals and equipment',
       icon: FiTarget,
       interestRate: '15% p.a.',
-      minAmount: 'KSh 1,000',
+      minAmount: '₦1,000',
       features: [
         'Customizable saving goals',
         'Progress tracking',
@@ -90,7 +90,7 @@ const SavingsScheme = () => {
       description: 'Special savings program for young farmers under 35',
       icon: FiStar,
       interestRate: '18% p.a.',
-      minAmount: 'KSh 500',
+      minAmount: '₦500',
       features: [
         'Lower minimum amounts',
         'Youth-focused benefits',
@@ -151,7 +151,7 @@ const SavingsScheme = () => {
       location: 'Meru County',
       scheme: 'Harvest Savings Plan',
       image: '/api/placeholder/64/64',
-      saved: 'KSh 180,000',
+      saved: '₦180,000',
       achievement: 'Bought greenhouse equipment',
       testimonial: 'The harvest savings plan helped me save systematically. I now have my own greenhouse and earn 3x more.',
       timeframe: '18 months'
@@ -161,7 +161,7 @@ const SavingsScheme = () => {
       location: 'Nyeri County',
       scheme: 'Group Savings Scheme',
       image: '/api/placeholder/64/64',
-      saved: 'KSh 95,000',
+      saved: '₦95,000',
       achievement: 'Group bought a tractor',
       testimonial: 'Saving as a group gave us the power to buy equipment we could never afford individually.',
       timeframe: '24 months'
@@ -171,7 +171,7 @@ const SavingsScheme = () => {
       location: 'Kisumu County',
       scheme: 'Youth Agri-Savers',
       image: '/api/placeholder/64/64',
-      saved: 'KSh 65,000',
+      saved: '₦65,000',
       achievement: 'Started fish farming',
       testimonial: 'The youth program gave me the foundation to start my fish farming venture at 28.',
       timeframe: '12 months'
@@ -234,7 +234,7 @@ const SavingsScheme = () => {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Monthly Savings: KSh {savingsCalculator.monthlyAmount.toLocaleString()}
+                      Monthly Savings: ₦{savingsCalculator.monthlyAmount.toLocaleString()}
                     </label>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div className="bg-green-600 h-2 rounded-full" style={{ width: '50%' }}></div>
@@ -253,9 +253,9 @@ const SavingsScheme = () => {
                   <div className="pt-4 border-t border-gray-200">
                     <div className="text-center">
                       <p className="text-sm text-gray-600">Total Savings After 12 Months</p>
-                      <p className="text-2xl font-bold text-green-600">KSh {totalSavings.toLocaleString()}</p>
+                      <p className="text-2xl font-bold text-green-600">₦{totalSavings.toLocaleString()}</p>
                       <p className="text-xs text-gray-500 mt-1">
-                        Interest Earned: KSh {(totalSavings - (savingsCalculator.monthlyAmount * savingsCalculator.duration)).toLocaleString()}
+                                                  Interest Earned: ₦{(totalSavings - (savingsCalculator.monthlyAmount * savingsCalculator.duration)).toLocaleString()}
                       </p>
                     </div>
                   </div>

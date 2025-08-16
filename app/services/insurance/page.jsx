@@ -38,7 +38,7 @@ const InsurancePage = () => {
         'Fire and theft protection',
         'Market price fluctuations'
       ],
-      sumInsured: 'KSh 50,000 - 5,000,000',
+      sumInsured: '₦50,000 - 5,000,000',
       claimPeriod: '30 days'
     },
     {
@@ -54,7 +54,7 @@ const InsurancePage = () => {
         'Theft protection',
         'Emergency medical costs'
       ],
-      sumInsured: 'KSh 10,000 - 2,000,000',
+      sumInsured: '₦10,000 - 2,000,000',
       claimPeriod: '14 days'
     },
     {
@@ -70,7 +70,7 @@ const InsurancePage = () => {
         'Drought protection',
         'Quick automated payouts'
       ],
-      sumInsured: 'KSh 25,000 - 1,000,000',
+      sumInsured: '₦25,000 - 1,000,000',
       claimPeriod: 'Automatic (7 days)'
     },
     {
@@ -86,7 +86,7 @@ const InsurancePage = () => {
         'Fire and natural disasters',
         'Third-party liability'
       ],
-      sumInsured: 'KSh 100,000 - 10,000,000',
+      sumInsured: '₦100,000 - 10,000,000',
       claimPeriod: '21 days'
     }
   ];

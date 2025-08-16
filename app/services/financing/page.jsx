@@ -29,7 +29,7 @@ const InputFinancingPage = () => {
       id: 'basic',
       name: 'Basic Input Package',
       description: 'Essential inputs for smallholder farmers',
-      amount: 'KSh 15,000 - 50,000',
+      amount: '₦15,000 - 50,000',
       rate: '10% p.a.',
       term: '3-6 months',
       features: [
@@ -45,7 +45,7 @@ const InputFinancingPage = () => {
       id: 'standard',
       name: 'Standard Crop Package',
       description: 'Comprehensive inputs for commercial farming',
-      amount: 'KSh 50,000 - 200,000',
+      amount: '₦50,000 - 200,000',
       rate: '12% p.a.',
       term: '6-12 months',
       features: [
@@ -62,7 +62,7 @@ const InputFinancingPage = () => {
       id: 'premium',
       name: 'Premium Agri-Package',
       description: 'Advanced inputs for large-scale operations',
-      amount: 'KSh 200,000 - 1,000,000',
+      amount: '₦200,000 - 1,000,000',
       rate: '15% p.a.',
       term: '12-24 months',
       features: [
@@ -193,7 +193,7 @@ const InputFinancingPage = () => {
       location: 'Meru County',
       image: '/api/placeholder/64/64',
       crop: 'Coffee',
-      financed: 'KSh 85,000',
+      financed: '₦85,000',
       result: 'Increased yield by 60%',
       testimonial: 'The input financing helped me upgrade to certified seedlings and proper fertilizers. My coffee quality improved dramatically.',
       year: '2023'
@@ -203,7 +203,7 @@ const InputFinancingPage = () => {
       location: 'Nakuru County',
       image: '/api/placeholder/64/64',
       crop: 'French Beans',
-      financed: 'KSh 120,000',
+      financed: '₦120,000',
       result: 'Export market access',
       testimonial: 'With quality inputs, I met export standards and now supply directly to European markets.',
       year: '2023'
@@ -213,7 +213,7 @@ const InputFinancingPage = () => {
       location: 'Kisumu County',
       image: '/api/placeholder/64/64',
       crop: 'Maize',
-      financed: 'KSh 45,000',
+      financed: '₦45,000',
       result: '40% higher income',
       testimonial: 'The hybrid seeds and proper fertilizers transformed my farm. I harvest three times more now.',
       year: '2024'

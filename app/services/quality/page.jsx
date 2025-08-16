@@ -37,7 +37,7 @@ const QualityControlPage = () => {
         'Certification report'
       ],
       duration: '1-2 days',
-      pricing: 'KSh 15,000 - 25,000',
+      pricing: '₦15,000 - 25,000',
       benefits: [
         'Identify improvement areas',
         'Ensure compliance',
@@ -57,7 +57,7 @@ const QualityControlPage = () => {
         'Certification issuance'
       ],
       duration: '3-5 days',
-      pricing: 'KSh 2,000 - 8,000',
+      pricing: '₦2,000 - 8,000',
       benefits: [
         'Verify product quality',
         'Meet export standards',
@@ -77,7 +77,7 @@ const QualityControlPage = () => {
         'Certificate issuance'
       ],
       duration: '2-4 weeks',
-      pricing: 'KSh 25,000 - 75,000',
+      pricing: '₦25,000 - 75,000',
       benefits: [
         'Market credibility',
         'Premium pricing',
@@ -97,7 +97,7 @@ const QualityControlPage = () => {
         'Improvement support'
       ],
       duration: 'Ongoing',
-      pricing: 'KSh 5,000/month',
+      pricing: '₦5,000/month',
       benefits: [
         'Consistent quality',
         'Early issue detection',
@@ -120,7 +120,7 @@ const QualityControlPage = () => {
       ],
       validity: '3 years',
       markets: 'Europe, USA, Asia',
-      cost: 'KSh 50,000 - 75,000'
+      cost: '₦50,000 - 75,000'
     },
     {
       name: 'Organic Certification',
@@ -134,7 +134,7 @@ const QualityControlPage = () => {
       ],
       validity: '1 year',
       markets: 'Premium markets worldwide',
-      cost: 'KSh 30,000 - 50,000'
+      cost: '₦30,000 - 50,000'
     },
     {
       name: 'Fair Trade',
@@ -148,7 +148,7 @@ const QualityControlPage = () => {
       ],
       validity: '3 years',
       markets: 'Fair trade markets',
-      cost: 'KSh 40,000 - 60,000'
+      cost: '₦40,000 - 60,000'
     },
     {
       name: 'HACCP',
@@ -162,7 +162,7 @@ const QualityControlPage = () => {
       ],
       validity: '3 years',
       markets: 'Food processing industry',
-      cost: 'KSh 35,000 - 55,000'
+      cost: '₦35,000 - 55,000'
     }
   ];
 

@@ -43,10 +43,10 @@ const PlaceOrdersPage = () => {
       farmerImage: '/api/placeholder/40/40',
       location: 'Kiambu County',
       items: [
-        { name: 'Fresh Tomatoes', quantity: '50 kg', price: 'KSh 4,000' },
-        { name: 'Bell Peppers', quantity: '20 kg', price: 'KSh 2,400' }
-      ],
-      total: 'KSh 6,400',
+            { name: 'Fresh Tomatoes', quantity: '50 kg', price: '₦4,000' },
+    { name: 'Bell Peppers', quantity: '20 kg', price: '₦2,400' }
+  ],
+  total: '₦6,400',
       status: 'delivered',
       deliveryDate: '2024-01-16',
       rating: 5
@@ -58,9 +58,9 @@ const PlaceOrdersPage = () => {
       farmerImage: '/api/placeholder/40/40',
       location: 'Machakos County',
       items: [
-        { name: 'Red Kidney Beans', quantity: '100 kg', price: 'KSh 12,000' }
-      ],
-      total: 'KSh 12,000',
+            { name: 'Red Kidney Beans', quantity: '100 kg', price: '₦12,000' }
+  ],
+  total: '₦12,000',
       status: 'in-transit',
       estimatedDelivery: '2024-01-17'
     },
@@ -71,10 +71,10 @@ const PlaceOrdersPage = () => {
       farmerImage: '/api/placeholder/40/40',
       location: 'Murang\'a County',
       items: [
-        { name: 'Hass Avocados', quantity: '200 pieces', price: 'KSh 3,000' },
-        { name: 'French Beans', quantity: '30 kg', price: 'KSh 5,400' }
-      ],
-      total: 'KSh 8,400',
+            { name: 'Hass Avocados', quantity: '200 pieces', price: '₦3,000' },
+    { name: 'French Beans', quantity: '30 kg', price: '₦5,400' }
+  ],
+  total: '₦8,400',
       status: 'processing'
     }
   ];
@@ -90,7 +90,7 @@ const PlaceOrdersPage = () => {
         'Coriander - 20 bunches',
         'Bell Peppers - 30 kg'
       ],
-      estimatedCost: 'KSh 15,000 - 18,000',
+      estimatedCost: '₦15,000 - 18,000',
       frequency: 'Weekly',
       suppliers: 8
     },
@@ -104,7 +104,7 @@ const PlaceOrdersPage = () => {
         'Root Vegetables - 40 kg',
         'Herbs & Spices - 15 bunches'
       ],
-      estimatedCost: 'KSh 12,000 - 15,000',
+      estimatedCost: '₦12,000 - 15,000',
       frequency: 'Bi-weekly',
       suppliers: 12
     },
@@ -117,7 +117,7 @@ const PlaceOrdersPage = () => {
         'Seasonal Fruits - 300 kg',
         'Grain Products - 200 kg'
       ],
-      estimatedCost: 'KSh 45,000 - 55,000',
+      estimatedCost: '₦45,000 - 55,000',
       frequency: 'Monthly',
       suppliers: 25
     }

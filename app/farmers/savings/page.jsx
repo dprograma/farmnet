@@ -29,7 +29,7 @@ const SavingsAccountPage = () => {
       id: 'basic',
       name: 'Basic Savings',
       interestRate: '8%',
-      minBalance: 'KSh 1,000',
+      minBalance: '₦1,000',
       monthlyFee: 'Free',
       features: [
         'Mobile banking',
@@ -44,8 +44,8 @@ const SavingsAccountPage = () => {
       id: 'premium',
       name: 'Premium Savings',
       interestRate: '10%',
-      minBalance: 'KSh 5,000',
-      monthlyFee: 'KSh 50',
+          minBalance: '₦5,000',
+    monthlyFee: '₦50',
       features: [
         'All basic features',
         'Higher interest rates',
@@ -60,8 +60,8 @@ const SavingsAccountPage = () => {
       id: 'goal',
       name: 'Goal-Based Savings',
       interestRate: '12%',
-      minBalance: 'KSh 2,000',
-      monthlyFee: 'KSh 100',
+          minBalance: '₦2,000',
+    monthlyFee: '₦100',
       features: [
         'All premium features',
         'Automated savings',
@@ -79,33 +79,33 @@ const SavingsAccountPage = () => {
       icon: FiSave,
       title: 'Emergency Fund',
       description: 'Build a safety net for unexpected expenses',
-      targetAmount: 'KSh 50,000',
+      targetAmount: '₦50,000',
       timeframe: '12 months',
-      monthlyTarget: 'KSh 4,167'
+      monthlyTarget: '₦4,167'
     },
     {
       icon: FiTrendingUp,
       title: 'Farm Expansion',
       description: 'Save for land purchase or equipment upgrade',
-      targetAmount: 'KSh 200,000',
+      targetAmount: '₦200,000',
       timeframe: '24 months',
-      monthlyTarget: 'KSh 8,333'
+      monthlyTarget: '₦8,333'
     },
     {
       icon: FiCalendar,
       title: 'Seasonal Buffer',
       description: 'Prepare for off-season expenses',
-      targetAmount: 'KSh 75,000',
+      targetAmount: '₦75,000',
       timeframe: '8 months',
-      monthlyTarget: 'KSh 9,375'
+      monthlyTarget: '₦9,375'
     },
     {
       icon: FiAward,
       title: 'Education Fund',
       description: 'Invest in your children\'s future',
-      targetAmount: 'KSh 150,000',
+      targetAmount: '₦150,000',
       timeframe: '36 months',
-      monthlyTarget: 'KSh 4,167'
+      monthlyTarget: '₦4,167'
     }
   ];
 
@@ -113,7 +113,7 @@ const SavingsAccountPage = () => {
     {
       icon: FiShield,
       title: 'KDIC Insured',
-      description: 'Your savings are protected up to KSh 500,000 by Kenya Deposit Insurance Corporation',
+      description: 'Your savings are protected up to ₦500,000 by Nigeria Deposit Insurance Corporation',
       stat: '100% secure'
     },
     {
@@ -141,7 +141,7 @@ const SavingsAccountPage = () => {
       name: 'Mary Njoki',
       location: 'Nyeri County',
       image: '/api/placeholder/64/64',
-      savings: 'KSh 120,000',
+      savings: '₦120,000',
       testimonial: 'I saved enough to buy a water tank and irrigation system. My farm productivity doubled!',
       timeframe: '18 months',
       rating: 5
@@ -150,7 +150,7 @@ const SavingsAccountPage = () => {
       name: 'Samuel Kiprop',
       location: 'Uasin Gishu County',
       image: '/api/placeholder/64/64',
-      savings: 'KSh 85,000',
+      savings: '₦85,000',
       testimonial: 'The automated savings helped me build an emergency fund without even thinking about it.',
       timeframe: '12 months',
       rating: 5
@@ -159,7 +159,7 @@ const SavingsAccountPage = () => {
       name: 'Grace Wambui',
       location: 'Kiambu County',
       image: '/api/placeholder/64/64',
-      savings: 'KSh 200,000',
+      savings: '₦200,000',
       testimonial: 'I used my savings to expand my greenhouse. Now I earn 3x more from my farm.',
       timeframe: '24 months',
       rating: 5
@@ -224,7 +224,7 @@ const SavingsAccountPage = () => {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Monthly Savings: KSh {savingsAmount.toLocaleString()}
+                      Monthly Savings: ₦{savingsAmount.toLocaleString()}
                     </label>
                     <input
                       type="range"
@@ -249,9 +249,9 @@ const SavingsAccountPage = () => {
                   <div className="pt-4 border-t border-gray-200">
                     <div className="text-center">
                       <p className="text-sm text-gray-600">Total Savings After 12 Months</p>
-                      <p className="text-2xl font-bold text-green-600">KSh {projectedSavings.toLocaleString()}</p>
+                      <p className="text-2xl font-bold text-green-600">₦{projectedSavings.toLocaleString()}</p>
                       <p className="text-xs text-gray-500 mt-1">
-                        Interest Earned: KSh {(projectedSavings - (savingsAmount * 12)).toLocaleString()}
+                                                  Interest Earned: ₦{(projectedSavings - (savingsAmount * 12)).toLocaleString()}
                       </p>
                     </div>
                   </div>
@@ -565,7 +565,7 @@ const SavingsAccountPage = () => {
                   
                   <div className="grid grid-cols-2 gap-4 mt-6">
                     <div className="text-center">
-                      <div className="text-2xl font-bold">KSh 85,000</div>
+                      <div className="text-2xl font-bold">₦85,000</div>
                       <div className="text-sm text-green-100">Total Saved</div>
                     </div>
                     <div className="text-center">
