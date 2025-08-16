@@ -372,7 +372,7 @@ export default function About() {
                         <FiLinkedin className="w-4 h-4" />
                       </a>
                       <a 
-                        href={`mailto:${member.name.toLowerCase().replace(' ', '.')}@farmnet.ng`}
+                        href={`mailto:${member.name.toLowerCase().replace(' ', '.')}@farmnetafrica.com`}
                         className="p-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-600 transition-colors"
                       >
                         <FiMail className="w-4 h-4" />

@@ -89,12 +89,11 @@ export default function Login() {
           {/* Logo */}
           <motion.div variants={fadeInUp} className="text-center mb-8">
             <Link href="/" className="inline-flex items-center space-x-3 group">
-              <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <span className="text-white font-bold text-lg">F</span>
-              </div>
-              <span className="text-2xl font-black font-display text-primary-600">
-                Farmnet
-              </span>
+              <img 
+                src="/farmnetlogo.png" 
+                alt="FarmNet Technologies" 
+                className="h-12 w-auto group-hover:scale-110 transition-transform duration-300 shadow-lg"
+              />
             </Link>
           </motion.div>
 

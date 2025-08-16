@@ -142,12 +142,11 @@ export default function Register() {
           {/* Logo */}
           <motion.div variants={fadeInUp} className="text-center mb-8">
             <Link href="/" className="inline-flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">F</span>
-              </div>
-              <span className="text-2xl font-bold font-bold text-green-600">
-                Farmnet
-              </span>
+              <img 
+                src="/farmnetlogo.png" 
+                alt="FarmNet Technologies" 
+                className="h-12 w-auto"
+              />
             </Link>
           </motion.div>
 
@@ -495,10 +494,15 @@ export default function Register() {
                                 I agree to Farmnet's{' '}
                                 <Link href="/terms" className="text-green-600 hover:text-green-700">
                                   Terms of Service
-                                </Link>{' '}
-                                and{' '}
+                                </Link>,{' '}
                                 <Link href="/privacy" className="text-green-600 hover:text-green-700">
                                   Privacy Policy
+                                </Link>,{' '}
+                                <Link href="/cookies" className="text-green-600 hover:text-green-700">
+                                  Cookie Policy
+                                </Link>, and{' '}
+                                <Link href="/data-protection" className="text-green-600 hover:text-green-700">
+                                  Data Protection terms
                                 </Link>
                               </div>
                             </label>

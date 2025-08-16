@@ -96,12 +96,11 @@ const Header = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="w-8 h-8 bg-gradient-to-r from-green-600 to-green-700 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">F</span>
-                </div>
-                <span className="ml-3 text-xl font-bold font-bold text-green-600">
-                  Farmnet
-                </span>
+                <img 
+                  src="/farmnetlogo.png" 
+                  alt="FarmNet Technologies" 
+                  className="h-8 w-auto"
+                />
               </motion.div>
             </Link>
 
@@ -231,12 +230,11 @@ const Header = () => {
               <div className="p-6 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <Link href="/" className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-green-600 to-green-700 rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">F</span>
-                    </div>
-                    <span className="text-xl font-bold font-bold text-green-600">
-                      Farmnet
-                    </span>
+                    <img 
+                      src="/farmnetlogo.png" 
+                      alt="FarmNet Technologies" 
+                      className="h-8 w-auto"
+                    />
                   </Link>
                   <button
                     onClick={() => setIsOpen(false)}

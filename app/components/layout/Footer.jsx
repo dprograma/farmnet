@@ -15,9 +15,9 @@ import Button from '../ui/Button';
 
 const Footer = () => {
   const quickLinks = [
-    { name: 'For Farmers', href: '/farmers' },
-    { name: 'For Buyers', href: '/buyers' },
-    { name: 'Services', href: '/services' },
+    { name: 'For Farmers', href: '/farmers/inputs' },
+    { name: 'For Buyers', href: '/buyers/marketplace' },
+    { name: 'Services', href: '/services/storage' },
     { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' }
   ];
@@ -91,12 +91,11 @@ const Footer = () => {
                 transition={{ duration: 0.6 }}
               >
                 <Link href="/" className="flex items-center space-x-3 mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">F</span>
-                  </div>
-                  <span className="text-2xl font-bold font-bold">
-                    Farmnet
-                  </span>
+                  <img 
+                    src="/farmnetlogo.png" 
+                    alt="FarmNet Technologies" 
+                    className="h-10 w-auto"
+                  />
                 </Link>
                 
                 <p className="text-gray-300 text-base leading-relaxed mb-6 max-w-md">
@@ -119,7 +118,7 @@ const Footer = () => {
                   
                   <div className="flex items-center space-x-3 text-gray-300">
                     <FiMail className="w-5 h-5 text-green-500" />
-                    <span className="text-sm">info@farmnet.ng</span>
+                    <span className="text-sm">info@farmnetafrica.com</span>
                   </div>
                 </div>
               </motion.div>

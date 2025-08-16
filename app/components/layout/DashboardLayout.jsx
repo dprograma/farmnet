@@ -88,12 +88,11 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
           {/* Logo */}
           <div className="flex items-center justify-between p-6 border-b border-neutral-200/50">
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-                <span className="text-white font-bold text-lg">F</span>
-              </div>
-              <span className="text-xl font-black font-display text-primary-600">
-                Farmnet
-              </span>
+              <img 
+                src="/farmnetlogo.png" 
+                alt="FarmNet Technologies" 
+                className="h-10 w-auto shadow-lg group-hover:scale-105 transition-transform duration-300"
+              />
             </Link>
             <button
               onClick={() => setSidebarOpen(false)}

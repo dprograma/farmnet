@@ -66,12 +66,11 @@ export default function ForgotPassword() {
           {/* Logo */}
           <motion.div variants={fadeInUp} className="text-center mb-8">
             <Link href="/" className="inline-flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">F</span>
-              </div>
-              <span className="text-2xl font-bold font-bold text-green-600">
-                Farmnet
-              </span>
+              <img 
+                src="/farmnetlogo.png" 
+                alt="FarmNet Technologies" 
+                className="h-12 w-auto"
+              />
             </Link>
           </motion.div>
 

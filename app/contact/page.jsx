@@ -82,8 +82,8 @@ export default function Contact() {
       icon: FiMail,
       title: 'Email Us',
       details: [
-        'info@farmnet.ng',
-        'support@farmnet.ng'
+        'info@farmnetafrica.com',
+        'support@farmnetafrica.com'
       ]
     },
     {
@@ -389,13 +389,37 @@ export default function Contact() {
             <p className="text-gray-600 mb-8">
               Check out our frequently asked questions or explore our services to learn more.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button variant="outline" size="lg">
                 View FAQ
               </Button>
               <Button size="lg">
                 Explore Services
               </Button>
+            </div>
+            
+            {/* Privacy and Legal Links */}
+            <div className="border-t border-gray-200 pt-8">
+              <p className="text-sm text-gray-500 mb-4">
+                By contacting us, you acknowledge that you have read and understood our:
+              </p>
+              <div className="flex flex-wrap justify-center gap-4 text-sm">
+                <a href="/privacy" className="text-green-600 hover:text-green-700 hover:underline">
+                  Privacy Policy
+                </a>
+                <span className="text-gray-300">•</span>
+                <a href="/terms" className="text-green-600 hover:text-green-700 hover:underline">
+                  Terms of Service
+                </a>
+                <span className="text-gray-300">•</span>
+                <a href="/cookies" className="text-green-600 hover:text-green-700 hover:underline">
+                  Cookie Policy
+                </a>
+                <span className="text-gray-300">•</span>
+                <a href="/data-protection" className="text-green-600 hover:text-green-700 hover:underline">
+                  Data Protection
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>
