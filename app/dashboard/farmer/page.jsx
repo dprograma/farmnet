@@ -1,5 +1,7 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   FiDollarSign,
   FiTrendingUp,
@@ -14,7 +16,8 @@ import {
   FiEye,
   FiCalendar,
   FiMapPin,
-  FiClock
+  FiClock,
+  FiUser
 } from 'react-icons/fi';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
@@ -37,10 +40,63 @@ const staggerChildren = {
 };
 
 export default function FarmerDashboard() {
-  const stats = [
+  const { user, loading, isAuthenticated } = useAuth();
+  const [userStats, setUserStats] = useState(null);
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      window.location.href = '/auth/login';
+      return;
+    }
+  }, [loading, isAuthenticated]);
+
+  // Load user statistics
+  useEffect(() => {
+    const loadStats = async () => {
+      if (user) {
+        try {
+          // Import API function dynamically to avoid SSR issues
+          const { getUserStats } = await import('../../lib/api');
+          const result = await getUserStats();
+          if (result.success) {
+            setUserStats(result.data);
+          }
+        } catch (error) {
+          console.error('Error loading stats:', error);
+        }
+      }
+    };
+
+    loadStats();
+  }, [user]);
+
+  // Show loading while authenticating
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
+
+  // Show login prompt if not authenticated
+  if (!isAuthenticated || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Please log in to continue</h1>
+          <a href="/auth/login" className="text-primary-600 hover:text-primary-700">
+            Go to Login
+          </a>
+        </div>
+      </div>
+    );
+  }
+  const stats = userStats ? [
     {
       title: 'Total Earnings',
-      value: formatCurrency(2450000),
+      value: formatCurrency(userStats.totalEarnings),
       change: '+12.5%',
       changeType: 'positive',
       icon: FiDollarSign,
@@ -48,7 +104,7 @@ export default function FarmerDashboard() {
     },
     {
       title: 'Active Products',
-      value: '24',
+      value: userStats.activeProducts.toString(),
       change: '+3',
       changeType: 'positive',
       icon: FiPackage,
@@ -56,7 +112,7 @@ export default function FarmerDashboard() {
     },
     {
       title: 'Pending Orders',
-      value: '8',
+      value: userStats.pendingOrders.toString(),
       change: '+2',
       changeType: 'positive',
       icon: FiShoppingCart,
@@ -64,13 +120,13 @@ export default function FarmerDashboard() {
     },
     {
       title: 'Savings Balance',
-      value: formatCurrency(450000),
+      value: formatCurrency(userStats.savingsBalance),
       change: '+8.2%',
       changeType: 'positive',
       icon: FiPieChart,
       color: 'bg-purple-100 text-purple-600'
     }
-  ];
+  ] : [];
 
   const recentOrders = [
     {
@@ -179,7 +235,7 @@ export default function FarmerDashboard() {
   };
 
   return (
-    <DashboardLayout userType="farmer">
+    <DashboardLayout userType="farmer" user={user}>
       <motion.div
         initial="initial"
         animate="animate"
@@ -188,20 +244,42 @@ export default function FarmerDashboard() {
       >
         {/* Welcome Section */}
         <motion.div variants={fadeInUp}>
-          <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-xl text-white p-6 mb-6">
-            <h1 className="text-2xl font-bold mb-2">Welcome back, John! 🌾</h1>
-            <p className="text-green-100">
-              Here's what's happening on your farm today
-            </p>
+          <div className="bg-green-50 border border-green-200 rounded-xl text-green-800 p-6 mb-6">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
+              <div className="flex-1 min-w-0">
+                <h1 className="text-xl lg:text-2xl font-bold mb-2">Welcome back, {user.name}! 🌾</h1>
+                <p className="text-green-700 mb-3">
+                  Here's what's happening on your farm today
+                </p>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-green-600">
+                  <div className="flex items-center space-x-1">
+                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span>Farm: {user.farmSize}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span>Location: {user.farmLocation}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span>Member since: {user.memberSince}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="text-left lg:text-right text-green-700 flex-shrink-0">
+                <div className="text-sm mb-1">Last login</div>
+                <div className="text-lg font-medium">Today, 9:23 AM</div>
+              </div>
+            </div>
           </div>
         </motion.div>
 
         {/* Stats Grid */}
         <motion.div variants={fadeInUp}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6">
             {stats.map((stat, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                <CardContent className="p-6">
+                <CardContent className="p-4 lg:p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${stat.color}`}>
                       <stat.icon className="w-6 h-6" />
@@ -255,7 +333,61 @@ export default function FarmerDashboard() {
           </Card>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
+          {/* User Profile Summary */}
+          <motion.div variants={fadeInUp}>
+            <Card className="h-fit">
+              <CardHeader>
+                <CardTitle>Profile Summary</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center">
+                      <span className="text-white font-semibold text-lg">{user.firstName?.charAt(0)}{user.lastName?.charAt(0)}</span>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900">{user.name}</h3>
+                      <p className="text-sm text-gray-600">{user.email}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3 pt-3 border-t">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Farm Size</span>
+                      <span className="text-sm font-medium">{user.farmSize}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Primary Crops</span>
+                      <span className="text-sm font-medium">{user.primaryCrops}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Experience</span>
+                      <span className="text-sm font-medium">{user.yearsOfExperience}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Verification</span>
+                      <Badge variant={user.verified ? "success" : "warning"} size="sm">
+                        {user.verified ? "Verified" : "Pending"}
+                      </Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Membership</span>
+                      <Badge variant={user.premium ? "info" : "default"} size="sm">
+                        {user.premium ? "Premium" : "Basic"}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <Button variant="outline" size="sm" className="w-full">
+                    <FiUser className="w-4 h-4 mr-2" />
+                    View Full Profile
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
           {/* Recent Orders */}
           <motion.div variants={fadeInUp}>
             <Card className="h-fit">

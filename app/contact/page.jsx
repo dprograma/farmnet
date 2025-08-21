@@ -74,8 +74,11 @@ export default function Contact() {
       icon: FiPhone,
       title: 'Call Us',
       details: [
-        '+234 (0) 123 456 7890',
-        '+234 (0) 123 456 7891'
+        'Main Line: +234 (0) 123 456 7890',
+        'Farmers Support: +234 (0) 123 456 7891',
+        'Buyers Hotline: +234 (0) 123 456 7892',
+        'Technical Support: +234 (0) 123 456 7893',
+        'Emergency Line: +234 (0) 123 456 7894'
       ]
     },
     {

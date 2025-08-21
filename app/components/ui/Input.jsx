@@ -39,7 +39,7 @@ const Input = forwardRef(({
           ref={ref}
           type={inputType}
           className={cn(
-            'w-full rounded-lg border border-neutral-200 focus:border-primary-500 focus:ring-primary-500 transition-all duration-200 py-3',
+            'w-full rounded-lg border border-neutral-200 focus:border-primary-500 focus:ring-primary-500 transition-all duration-200 py-3 text-gray-900 font-medium bg-white placeholder:text-gray-500',
             Icon ? 'pl-11' : 'pl-4',
             'pr-4',
             isPassword && 'pr-12',

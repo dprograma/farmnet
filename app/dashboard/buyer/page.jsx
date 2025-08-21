@@ -1,5 +1,7 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   FiShoppingCart,
   FiTrendingUp,
@@ -39,10 +41,62 @@ const staggerChildren = {
 };
 
 export default function BuyerDashboard() {
-  const stats = [
+  const { user, loading, isAuthenticated } = useAuth();
+  const [userStats, setUserStats] = useState(null);
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      window.location.href = '/auth/login';
+      return;
+    }
+  }, [loading, isAuthenticated]);
+
+  // Load user statistics
+  useEffect(() => {
+    const loadStats = async () => {
+      if (user) {
+        try {
+          const { getUserStats } = await import('../../lib/api');
+          const result = await getUserStats();
+          if (result.success) {
+            setUserStats(result.data);
+          }
+        } catch (error) {
+          console.error('Error loading stats:', error);
+        }
+      }
+    };
+
+    loadStats();
+  }, [user]);
+
+  // Show loading while authenticating
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
+
+  // Show login prompt if not authenticated
+  if (!isAuthenticated || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Please log in to continue</h1>
+          <a href="/auth/login" className="text-primary-600 hover:text-primary-700">
+            Go to Login
+          </a>
+        </div>
+      </div>
+    );
+  }
+  const stats = userStats ? [
     {
       title: 'Total Purchases',
-      value: formatCurrency(15600000),
+      value: formatCurrency(userStats.totalPurchases),
       change: '+18.2%',
       changeType: 'positive',
       icon: FiShoppingCart,
@@ -50,7 +104,7 @@ export default function BuyerDashboard() {
     },
     {
       title: 'Active Orders',
-      value: '32',
+      value: userStats.activeOrders.toString(),
       change: '+5',
       changeType: 'positive',
       icon: FiPackage,
@@ -58,7 +112,7 @@ export default function BuyerDashboard() {
     },
     {
       title: 'Suppliers',
-      value: '156',
+      value: userStats.totalSuppliers.toString(),
       change: '+12',
       changeType: 'positive',
       icon: FiUsers,
@@ -66,13 +120,13 @@ export default function BuyerDashboard() {
     },
     {
       title: 'Cost Savings',
-      value: formatCurrency(2400000),
+      value: formatCurrency(userStats.costSavings),
       change: '+22.5%',
       changeType: 'positive',
       icon: FiTrendingUp,
       color: 'bg-orange-100 text-orange-600'
     }
-  ];
+  ] : [];
 
   const recentOrders = [
     {
@@ -197,7 +251,7 @@ export default function BuyerDashboard() {
   };
 
   return (
-    <DashboardLayout userType="buyer">
+    <DashboardLayout userType="buyer" user={user}>
       <motion.div
         initial="initial"
         animate="animate"
@@ -206,9 +260,9 @@ export default function BuyerDashboard() {
       >
         {/* Welcome Section */}
         <motion.div variants={fadeInUp}>
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl text-white p-6 mb-6">
-            <h1 className="text-2xl font-bold mb-2">Welcome back, ABC Company! 🏢</h1>
-            <p className="text-blue-100">
+          <div className="bg-blue-50 border border-blue-200 rounded-xl text-blue-800 p-6 mb-6">
+            <h1 className="text-2xl font-bold mb-2">Welcome back, {user.name}! 🏢</h1>
+            <p className="text-blue-700">
               Discover quality produce from verified farmers across Nigeria
             </p>
           </div>
@@ -216,10 +270,10 @@ export default function BuyerDashboard() {
 
         {/* Stats Grid */}
         <motion.div variants={fadeInUp}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6">
             {stats.map((stat, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                <CardContent className="p-6">
+                <CardContent className="p-4 lg:p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${stat.color}`}>
                       <stat.icon className="w-6 h-6" />

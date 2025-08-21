@@ -23,10 +23,13 @@ import {
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
 import { cn } from '../../lib/utils';
+import { toast } from 'react-toastify';
+import { useAuth } from '../../contexts/AuthContext';
 
-const DashboardLayout = ({ children, userType = 'farmer' }) => {
+const DashboardLayout = ({ children, userType = 'farmer', user = null }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
+  const { logout } = useAuth();
 
   const farmerNavigation = [
     { name: 'Dashboard', href: '/dashboard/farmer', icon: FiHome },
@@ -54,14 +57,47 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
 
   const isActive = (href) => pathname === href;
 
-  const user = {
+  const defaultUser = {
     name: userType === 'farmer' ? 'John Farmer' : 'ABC Company',
     email: userType === 'farmer' ? 'john@farmer.com' : 'contact@abccompany.com',
     avatar: null
   };
 
+  const currentUser = user || defaultUser;
+
+  const handleLogout = () => {
+    toast.info(
+      <div>
+        <p className="font-medium mb-2">Are you sure you want to logout?</p>
+        <div className="flex space-x-2">
+          <button
+            onClick={() => {
+              toast.dismiss();
+              logout();
+            }}
+            className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 transition-colors"
+          >
+            Yes, Logout
+          </button>
+          <button
+            onClick={() => toast.dismiss()}
+            className="bg-gray-600 text-white px-3 py-1 rounded text-sm hover:bg-gray-700 transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>,
+      {
+        autoClose: false,
+        closeOnClick: false,
+        draggable: false,
+        closeButton: false
+      }
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30">
+    <div className="min-h-screen bg-white lg:flex">
       {/* Mobile sidebar overlay */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -76,17 +112,14 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
       </AnimatePresence>
 
       {/* Sidebar */}
-      <motion.aside
-        initial={false}
-        animate={{
-          x: sidebarOpen ? 0 : '-100%'
-        }}
-        transition={{ type: 'tween', duration: 0.3 }}
-        className="fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-white to-neutral-50 shadow-2xl border-r border-neutral-200/50 lg:translate-x-0 lg:static lg:inset-0"
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-white to-neutral-50 shadow-2xl border-r border-neutral-200/50 transform transition-transform duration-300 ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        } lg:relative lg:transform-none lg:z-auto`}
       >
         <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex items-center justify-between p-6 border-b border-neutral-200/50">
+          <div className="flex items-center justify-between p-4 border-b border-neutral-200/50">
             <Link href="/" className="flex items-center space-x-3 group">
               <img 
                 src="/farmnetlogo.png" 
@@ -103,20 +136,20 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
           </div>
 
           {/* User Info */}
-          <div className="p-6 border-b border-neutral-200/50">
+          <div className="p-4 border-b border-neutral-200/50">
             <Link href={`/dashboard/${userType}/profile`} className="group">
               <div className="flex items-center space-x-4 p-3 rounded-xl bg-gradient-to-r from-primary-50 to-primary-100/50 group-hover:from-primary-100 group-hover:to-primary-200/50 transition-all duration-300">
                 <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
                   <span className="text-white font-semibold text-lg">
-                    {user.name.charAt(0)}
+                    {currentUser.name.charAt(0)}
                   </span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-neutral-900 truncate group-hover:text-primary-700 transition-colors">
-                    {user.name}
+                    {currentUser.name}
                   </p>
                   <p className="text-xs text-neutral-500 truncate">
-                    {user.email}
+                    {currentUser.email}
                   </p>
                 </div>
               </div>
@@ -137,7 +170,7 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-6 space-y-2">
+          <nav className="flex-1 p-4 space-y-2">
             <div className="mb-4">
               <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-3">
                 Main Menu
@@ -172,29 +205,24 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
           </nav>
 
           {/* Logout */}
-          <div className="p-6 border-t border-neutral-200/50">
+          <div className="p-4 border-t border-neutral-200/50">
             <Button
               variant="ghost"
               className="w-full justify-start text-neutral-700 hover:bg-red-50 hover:text-red-600 transition-all duration-200 rounded-xl py-3"
-              onClick={() => {
-                // Handle logout with confirmation
-                if (confirm('Are you sure you want to logout?')) {
-                  window.location.href = '/auth/login';
-                }
-              }}
+              onClick={handleLogout}
             >
               <FiLogOut className="w-5 h-5 mr-3" />
               <span className="font-medium">Logout</span>
             </Button>
           </div>
         </div>
-      </motion.aside>
+      </aside>
 
       {/* Main content */}
-      <div className="lg:pl-72">
+      <div className="flex-1 lg:flex lg:flex-col">
         {/* Top bar */}
         <header className="bg-white/80 backdrop-blur-sm shadow-lg border-b border-neutral-200/50 sticky top-0 z-30">
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between px-4 py-3">
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setSidebarOpen(true)}
@@ -233,7 +261,7 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
               <Link href={`/dashboard/${userType}/profile`} className="group">
                 <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center cursor-pointer shadow-lg group-hover:scale-105 transition-all duration-200">
                   <span className="text-white font-semibold text-sm">
-                    {user.name.charAt(0)}
+                    {currentUser.name.charAt(0)}
                   </span>
                 </div>
               </Link>
@@ -242,8 +270,8 @@ const DashboardLayout = ({ children, userType = 'farmer' }) => {
         </header>
 
         {/* Page content */}
-        <main className="p-6 lg:p-8">
-          <div className="max-w-7xl mx-auto">
+        <main className="p-4 lg:p-6">
+          <div className="w-full">
             {children}
           </div>
         </main>

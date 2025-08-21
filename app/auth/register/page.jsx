@@ -97,6 +97,46 @@ export default function Register() {
     'Other'
   ];
 
+  const nigerianStates = [
+    'Lagos State',
+    'Kano State',
+    'Kaduna State',
+    'Oyo State',
+    'Rivers State',
+    'Bayelsa State',
+    'Katsina State',
+    'Cross River State',
+    'Abia State',
+    'Adamawa State',
+    'Akwa Ibom State',
+    'Anambra State',
+    'Bauchi State',
+    'Benue State',
+    'Borno State',
+    'Delta State',
+    'Ebonyi State',
+    'Edo State',
+    'Ekiti State',
+    'Enugu State',
+    'Gombe State',
+    'Imo State',
+    'Jigawa State',
+    'Kebbi State',
+    'Kogi State',
+    'Kwara State',
+    'Nasarawa State',
+    'Niger State',
+    'Ogun State',
+    'Ondo State',
+    'Osun State',
+    'Plateau State',
+    'Sokoto State',
+    'Taraba State',
+    'Yobe State',
+    'Zamfara State',
+    'Federal Capital Territory (FCT)'
+  ];
+
   const handleRegister = async (values, { setSubmitting }) => {
     try {
       // Simulate registration API call
@@ -403,18 +443,26 @@ export default function Register() {
                               </Field>
 
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <Field name="farmLocation">
-                                  {({ field }) => (
-                                    <Input
-                                      {...field}
-                                      label="Farm Location"
-                                      icon={FiMapPin}
-                                      placeholder="City, State"
-                                      error={touched.farmLocation && errors.farmLocation}
-                                      required
-                                    />
+                                <div>
+                                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Farm Location (State) <span className="text-error">*</span>
+                                  </label>
+                                  <select
+                                    value={values.farmLocation}
+                                    onChange={(e) => setFieldValue('farmLocation', e.target.value)}
+                                    className="input"
+                                  >
+                                    <option value="">Select your state</option>
+                                    {nigerianStates.map((state) => (
+                                      <option key={state} value={state}>
+                                        {state}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  {touched.farmLocation && errors.farmLocation && (
+                                    <p className="mt-1 text-sm text-error">{errors.farmLocation}</p>
                                   )}
-                                </Field>
+                                </div>
 
                                 <Field name="farmSize">
                                   {({ field }) => (

@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { useAuth } from '../../../contexts/AuthContext';
+import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { 
   FiUser, 
@@ -36,8 +38,9 @@ const staggerChildren = {
 };
 
 export default function FarmerProfile() {
+  const { user, updateProfile } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
-  const [profileData, setProfileData] = useState({
+  const [profileData, setProfileData] = useState(user || {
     firstName: 'John',
     lastName: 'Farmer',
     email: 'john@farmer.com',
@@ -57,9 +60,16 @@ export default function FarmerProfile() {
     setFormData(profileData);
   };
 
-  const handleSave = () => {
-    setProfileData(formData);
-    setIsEditing(false);
+  const handleSave = async () => {
+    try {
+      const result = await updateProfile(formData);
+      if (result.success) {
+        setProfileData(result.user);
+        setIsEditing(false);
+      }
+    } catch (error) {
+      toast.error('Failed to update profile. Please try again.');
+    }
   };
 
   const handleCancel = () => {
@@ -125,7 +135,7 @@ export default function FarmerProfile() {
         {/* Profile Overview */}
         <motion.div variants={fadeInUp}>
           <Card className="overflow-hidden">
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-8">
+            <div className="bg-primary-50 border-b border-primary-200 px-6 py-8">
               <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                 <div className="relative">
                   <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg">
@@ -138,15 +148,15 @@ export default function FarmerProfile() {
                   </button>
                 </div>
                 <div className="text-center md:text-left flex-1">
-                  <h2 className="text-2xl font-bold text-white mb-2">
+                  <h2 className="text-2xl font-bold text-primary-800 mb-2">
                     {profileData.firstName} {profileData.lastName}
                   </h2>
-                  <p className="text-primary-100 mb-3">{profileData.email}</p>
+                  <p className="text-primary-600 mb-3">{profileData.email}</p>
                   <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                    <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                    <Badge variant="secondary" className="bg-white text-primary-700 border-primary-300">
                       🌾 Verified Farmer
                     </Badge>
-                    <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                    <Badge variant="secondary" className="bg-white text-primary-700 border-primary-300">
                       ⭐ Premium Member
                     </Badge>
                   </div>
@@ -371,9 +381,35 @@ export default function FarmerProfile() {
                   variant="outline" 
                   className="mt-3 md:mt-0 border-red-300 text-red-600 hover:bg-red-600 hover:text-white"
                   onClick={() => {
-                    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-                      alert('Account deletion functionality would be implemented here.');
-                    }
+                    toast.error(
+                      <div>
+                        <p className="font-medium mb-2">⚠️ Delete Account</p>
+                        <p className="text-sm mb-3">This action cannot be undone. All your data will be permanently deleted.</p>
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={() => {
+                              toast.dismiss();
+                              toast.success('Account deletion feature will be implemented soon.');
+                            }}
+                            className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 transition-colors"
+                          >
+                            Confirm Delete
+                          </button>
+                          <button
+                            onClick={() => toast.dismiss()}
+                            className="bg-gray-600 text-white px-3 py-1 rounded text-sm hover:bg-gray-700 transition-colors"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>,
+                      {
+                        autoClose: false,
+                        closeOnClick: false,
+                        draggable: false,
+                        closeButton: false
+                      }
+                    );
                   }}
                 >
                   Delete Account
