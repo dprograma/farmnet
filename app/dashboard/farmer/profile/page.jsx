@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useAuth } from '../../../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
@@ -50,10 +50,14 @@ export default function FarmerProfile() {
     primaryCrops: 'Rice, Cassava, Tomatoes',
     yearsOfExperience: '8 years',
     bankAccount: '**** **** **** 1234',
-    bvn: '**** **** 56'
+    bvn: '**** **** 56',
+    avatar: null
   });
 
   const [formData, setFormData] = useState(profileData);
+  const [profileImage, setProfileImage] = useState(profileData.avatar);
+  const [imagePreview, setImagePreview] = useState(profileData.avatar);
+  const fileInputRef = useRef(null);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -62,9 +66,16 @@ export default function FarmerProfile() {
 
   const handleSave = async () => {
     try {
-      const result = await updateProfile(formData);
+      const updatedData = { ...formData };
+      if (profileImage !== profileData.avatar) {
+        updatedData.avatar = profileImage;
+      }
+      
+      const result = await updateProfile(updatedData);
       if (result.success) {
         setProfileData(result.user);
+        setProfileImage(result.user.avatar);
+        setImagePreview(result.user.avatar);
         setIsEditing(false);
       }
     } catch (error) {
@@ -74,6 +85,8 @@ export default function FarmerProfile() {
 
   const handleCancel = () => {
     setFormData(profileData);
+    setProfileImage(profileData.avatar);
+    setImagePreview(profileData.avatar);
     setIsEditing(false);
   };
 
@@ -82,6 +95,46 @@ export default function FarmerProfile() {
       ...prev,
       [field]: value
     }));
+  };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+      if (!validTypes.includes(file.type)) {
+        toast.error('Please select a valid image file (JPEG, PNG, or GIF)');
+        return;
+      }
+
+      // Validate file size (max 5MB)
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      if (file.size > maxSize) {
+        toast.error('Image size should be less than 5MB');
+        return;
+      }
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageDataUrl = e.target.result;
+        setImagePreview(imageDataUrl);
+        setProfileImage(imageDataUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const removeImage = () => {
+    setProfileImage(null);
+    setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const stats = [
@@ -138,14 +191,33 @@ export default function FarmerProfile() {
             <div className="bg-primary-50 border-b border-primary-200 px-6 py-8">
               <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                 <div className="relative">
-                  <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-3xl font-bold text-primary-600">
-                      {profileData.firstName.charAt(0)}{profileData.lastName.charAt(0)}
-                    </span>
+                  <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg overflow-hidden">
+                    {imagePreview ? (
+                      <img 
+                        src={imagePreview} 
+                        alt="Profile" 
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    ) : (
+                      <span className="text-3xl font-bold text-primary-600">
+                        {profileData.firstName.charAt(0)}{profileData.lastName.charAt(0)}
+                      </span>
+                    )}
                   </div>
-                  <button className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-200">
+                  <button 
+                    onClick={handleImageClick}
+                    className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-200"
+                    title="Change profile picture"
+                  >
                     <FiCamera className="w-4 h-4 text-primary-600" />
                   </button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
                 </div>
                 <div className="text-center md:text-left flex-1">
                   <h2 className="text-2xl font-bold text-primary-800 mb-2">
@@ -165,6 +237,45 @@ export default function FarmerProfile() {
             </div>
           </Card>
         </motion.div>
+
+        {/* Image Upload Preview (when editing) */}
+        {isEditing && imagePreview && (
+          <motion.div variants={fadeInUp}>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <span className="flex items-center">
+                    <FiCamera className="w-5 h-5 mr-2 text-primary-600" />
+                    Profile Picture Preview
+                  </span>
+                  <Button 
+                    onClick={removeImage}
+                    variant="outline" 
+                    size="sm"
+                    className="text-red-600 border-red-300 hover:bg-red-50"
+                  >
+                    <FiX className="w-4 h-4 mr-1" />
+                    Remove
+                  </Button>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex justify-center">
+                  <div className="w-32 h-32 rounded-full overflow-hidden shadow-lg">
+                    <img 
+                      src={imagePreview} 
+                      alt="Profile Preview" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+                <p className="text-center text-sm text-neutral-600 mt-3">
+                  This will be your new profile picture
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
 
         {/* Stats */}
         <motion.div variants={fadeInUp}>

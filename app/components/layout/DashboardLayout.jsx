@@ -139,10 +139,18 @@ const DashboardLayout = ({ children, userType = 'farmer', user = null }) => {
           <div className="p-4 border-b border-neutral-200/50">
             <Link href={`/dashboard/${userType}/profile`} className="group">
               <div className="flex items-center space-x-4 p-3 rounded-xl bg-gradient-to-r from-primary-50 to-primary-100/50 group-hover:from-primary-100 group-hover:to-primary-200/50 transition-all duration-300">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-                  <span className="text-white font-semibold text-lg">
-                    {currentUser.name.charAt(0)}
-                  </span>
+                <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300 overflow-hidden">
+                  {currentUser.avatar ? (
+                    <img 
+                      src={currentUser.avatar} 
+                      alt="Profile" 
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  ) : (
+                    <span className="text-white font-semibold text-lg">
+                      {currentUser.name.charAt(0)}
+                    </span>
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-neutral-900 truncate group-hover:text-primary-700 transition-colors">

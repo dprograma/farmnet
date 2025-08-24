@@ -1,11 +1,1 @@
-iUser is not defined
-
-app/dashboard/farmer/page.jsx (323:22) @ FarmerDashboard
-
-  321 |
-  322 |                   <Button variant="outline" size="sm" className="w-full">
-> 323 |                     <FiUser className="w-4 h-4 mr-2" />
-      |                      ^
-  324 |                     View Full Profile
-  325 |                   </Button>
-  326 |                 </div>
+All tasks completed successfully!
