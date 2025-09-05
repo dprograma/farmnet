@@ -13,6 +13,12 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const loadUserFromStorage = () => {
       try {
+        // Check if we're in the browser
+        if (typeof window === 'undefined') {
+          setLoading(false);
+          return;
+        }
+
         const storedUser = sessionStorage.getItem('farmnet_user');
         const storedToken = sessionStorage.getItem('farmnet_token');
         
@@ -23,10 +29,12 @@ export function AuthProvider({ children }) {
         }
       } catch (error) {
         console.error('Error loading user from storage:', error);
-        toast.error('Session expired. Please log in again.');
-        // Clear corrupted data
-        sessionStorage.removeItem('farmnet_user');
-        sessionStorage.removeItem('farmnet_token');
+        if (typeof window !== 'undefined') {
+          toast.error('Session expired. Please log in again.');
+          // Clear corrupted data
+          sessionStorage.removeItem('farmnet_user');
+          sessionStorage.removeItem('farmnet_token');
+        }
       } finally {
         setLoading(false);
       }
@@ -89,8 +97,10 @@ export function AuthProvider({ children }) {
       const token = `farmnet_token_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       
       // Store in session storage
-      sessionStorage.setItem('farmnet_user', JSON.stringify(userData));
-      sessionStorage.setItem('farmnet_token', token);
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('farmnet_user', JSON.stringify(userData));
+        sessionStorage.setItem('farmnet_token', token);
+      }
       
       // Update state
       setUser(userData);
@@ -135,8 +145,10 @@ export function AuthProvider({ children }) {
       const token = `farmnet_token_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       
       // Store in session storage
-      sessionStorage.setItem('farmnet_user', JSON.stringify(newUser));
-      sessionStorage.setItem('farmnet_token', token);
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('farmnet_user', JSON.stringify(newUser));
+        sessionStorage.setItem('farmnet_token', token);
+      }
       
       // Update state
       setUser(newUser);
@@ -165,7 +177,9 @@ export function AuthProvider({ children }) {
       const updatedUser = { ...user, ...updates };
       
       // Store in session storage
-      sessionStorage.setItem('farmnet_user', JSON.stringify(updatedUser));
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('farmnet_user', JSON.stringify(updatedUser));
+      }
       
       // Update state
       setUser(updatedUser);
@@ -185,8 +199,10 @@ export function AuthProvider({ children }) {
   // Logout function
   const logout = () => {
     // Clear session storage
-    sessionStorage.removeItem('farmnet_user');
-    sessionStorage.removeItem('farmnet_token');
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('farmnet_user');
+      sessionStorage.removeItem('farmnet_token');
+    }
     
     // Clear state
     setUser(null);
@@ -204,7 +220,7 @@ export function AuthProvider({ children }) {
   const getUserById = async (userId) => {
     try {
       // This would be an API call in a real app
-      const token = sessionStorage.getItem('farmnet_token');
+      const token = typeof window !== 'undefined' ? sessionStorage.getItem('farmnet_token') : null;
       if (!token) {
         throw new Error('No authentication token');
       }

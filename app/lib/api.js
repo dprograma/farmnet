@@ -5,7 +5,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 
 // Helper function to get auth headers
 const getAuthHeaders = () => {
-  const token = sessionStorage.getItem('farmnet_token');
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('farmnet_token') : null;
   return {
     'Content-Type': 'application/json',
     ...(token && { 'Authorization': `Bearer ${token}` })
@@ -130,7 +130,7 @@ export const userApi = {
     await delay(300); // Simulate network delay
     
     try {
-      const storedUser = sessionStorage.getItem('farmnet_user');
+      const storedUser = typeof window !== 'undefined' ? sessionStorage.getItem('farmnet_user') : null;
       if (!storedUser) {
         throw new Error('No user data found');
       }
@@ -154,7 +154,7 @@ export const userApi = {
     await delay(500); // Simulate network delay
     
     try {
-      const storedUser = sessionStorage.getItem('farmnet_user');
+      const storedUser = typeof window !== 'undefined' ? sessionStorage.getItem('farmnet_user') : null;
       if (!storedUser) {
         throw new Error('No user data found');
       }
@@ -188,7 +188,7 @@ export const userApi = {
     await delay(300); // Simulate network delay
     
     try {
-      const storedUser = sessionStorage.getItem('farmnet_user');
+      const storedUser = typeof window !== 'undefined' ? sessionStorage.getItem('farmnet_user') : null;
       if (!storedUser) {
         throw new Error('No user data found');
       }

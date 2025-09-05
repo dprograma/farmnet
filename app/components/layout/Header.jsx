@@ -10,7 +10,7 @@ import {
   FiShoppingCart, 
   FiTrendingUp,
   FiPhone,
-  FiChevronDown 
+  FiChevronDown
 } from 'react-icons/fi';
 import Button from '../ui/Button';
 import { cn } from '../../lib/utils';
@@ -67,6 +67,7 @@ const Header = () => {
         { name: 'Savings Scheme', href: '/services/savings' }
       ]
     },
+    { name: 'Market Updates', href: '/market-updates', icon: FiTrendingUp },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact', icon: FiPhone }
   ];

@@ -19,6 +19,12 @@ enum UserType {
   ADMIN
 }
 
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+  MODERATOR
+}
+
 enum OrderStatus {
   PENDING
   APPROVED
@@ -289,4 +295,121 @@ model WeatherData {
   createdAt         DateTime    @default(now())
 
   @@map("weather_data")
+}
+
+enum UpdateType {
+  VIDEO
+  TEXT_WITH_IMAGES
+}
+
+enum UpdateStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model MarketUpdate {
+  id                String        @id @default(cuid())
+  title             String
+  description       String
+  type              UpdateType
+  status            UpdateStatus  @default(PENDING)
+  commodity         String        // Agricultural product name (will reference commodities.name)
+  commodityId       String?       // Optional FK to commodity for structured data
+  location          String        // Market location
+  price             Float?        // Current price
+  unit              String?       // Price unit (per kg, per ton, etc)
+  videoUrl          String?       // For video updates
+  videoThumbnail    String?       // Video thumbnail image
+  videoDuration     Int?          // Duration in seconds
+  images            String[]      // Array of image URLs for text updates
+  submittedBy       String        // Submitter name/phone
+  submitterContact  String        // WhatsApp number or contact
+  adminNotes        String?       // Internal admin notes
+  viewCount         Int           @default(0)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  approvedAt        DateTime?
+  approvedBy        String?       // Admin who approved
+
+  // Relations
+  commodityRef      Commodity?    @relation(fields: [commodityId], references: [id])
+
+  @@map("market_updates")
+}
+
+model MarketSubmission {
+  id                String        @id @default(cuid())
+  submitterName     String
+  submitterPhone    String
+  commodity         String        // Commodity name (will reference commodities.name)
+  commodityId       String?       // Optional FK to commodity for structured data
+  location          String
+  description       String
+  price             Float?
+  unit              String?
+  mediaFiles        String[]      // Temporary file paths before processing
+  processed         Boolean       @default(false)
+  marketUpdateId    String?       // Link to created MarketUpdate if approved
+  createdAt         DateTime      @default(now())
+  processedAt       DateTime?
+
+  // Relations
+  commodityRef      Commodity?    @relation(fields: [commodityId], references: [id])
+
+  @@map("market_submissions")
+}
+
+model Admin {
+  id            String      @id @default(cuid())
+  email         String      @unique
+  password      String      // Hashed password
+  name          String
+  role          AdminRole   @default(ADMIN)
+  isActive      Boolean     @default(true)
+  lastLogin     DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  // Track admin actions
+  approvedUpdates String[]  // IDs of market updates approved by this admin
+
+  @@map("admins")
+}
+
+model CommodityCategory {
+  id          String      @id @default(cuid())
+  name        String      @unique // e.g., "Crops", "Animals", "Poultry", "Machineries", "Accessories"
+  description String?     // Optional description of the category
+  icon        String?     // Optional icon name or URL
+  sortOrder   Int         @default(0) // For display ordering
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  commodities Commodity[]
+
+  @@map("commodity_categories")
+}
+
+model Commodity {
+  id          String            @id @default(cuid())
+  name        String            // e.g., "Rice", "Tomato", "Cattle", "Tractor"
+  categoryId  String
+  description String?           // Optional description
+  aliases     String[]          // Alternative names (e.g., ["Maize", "Corn"])
+  units       String[]          // Common units (e.g., ["kg", "bag (50kg)", "ton"])
+  isActive    Boolean           @default(true)
+  sortOrder   Int               @default(0)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  // Relations
+  category         CommodityCategory @relation(fields: [categoryId], references: [id])
+  marketUpdates    MarketUpdate[]
+  marketSubmissions MarketSubmission[]
+
+  @@unique([name, categoryId])
+  @@map("commodities")
 }

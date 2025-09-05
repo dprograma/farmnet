@@ -55,9 +55,9 @@ module.exports = {
         info: '#3b82f6'
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        display: ['Poppins', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+        sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['var(--font-poppins)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-jetbrains)', 'Fira Code', 'monospace']
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1rem' }],

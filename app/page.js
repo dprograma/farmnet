@@ -10,7 +10,7 @@ import {
   FiUsers,
   FiArrowRight,
   FiCheck,
-  FiPlay
+  FiMapPin
 } from 'react-icons/fi';
 import Button from './components/ui/Button';
 import { Card, CardContent } from './components/ui/Card';
@@ -131,11 +131,14 @@ export default function Home() {
                 <FiArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </Button>
               
-              <button className="flex items-center space-x-3 text-neutral-700 hover:text-primary-600 transition-all duration-300 group">
+              <button 
+                className="flex items-center space-x-3 text-neutral-700 hover:text-primary-600 transition-all duration-300 group"
+                onClick={() => window.location.href = '/market-updates'}
+              >
                 <div className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center group-hover:shadow-primary-500/25 transform hover:scale-110 transition-all duration-300">
-                  <FiPlay className="w-5 h-5 ml-1 text-primary-600" />
+                  <FiTrendingUp className="w-5 h-5 text-primary-600" />
                 </div>
-                <span className="font-semibold">Watch Demo</span>
+                <span className="font-semibold">Market Updates</span>
               </button>
             </motion.div>
             

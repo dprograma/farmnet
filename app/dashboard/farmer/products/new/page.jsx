@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { Formik, Form, Field } from 'formik';
@@ -65,44 +65,41 @@ const fadeInUp = {
 export default function ListNewProduct() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedImages, setSelectedImages] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const categories = {
-    crops: {
-      name: 'Crops & Grains',
-      subcategories: ['Rice', 'Maize', 'Wheat', 'Sorghum', 'Millet', 'Cassava', 'Yam', 'Beans', 'Cowpeas']
-    },
-    vegetables: {
-      name: 'Vegetables',
-      subcategories: ['Tomatoes', 'Onions', 'Peppers', 'Okra', 'Lettuce', 'Cabbage', 'Carrots', 'Cucumber']
-    },
-    fruits: {
-      name: 'Fruits',
-      subcategories: ['Bananas', 'Oranges', 'Mangoes', 'Pineapples', 'Avocados', 'Watermelon', 'Papaya']
-    },
-    livestock: {
-      name: 'Livestock',
-      subcategories: ['Cattle', 'Goats', 'Sheep', 'Pigs', 'Rabbits']
-    },
-    poultry: {
-      name: 'Poultry',
-      subcategories: ['Chickens', 'Ducks', 'Turkeys', 'Guinea Fowl', 'Eggs']
-    },
-    dairy: {
-      name: 'Dairy Products',
-      subcategories: ['Fresh Milk', 'Yogurt', 'Cheese', 'Butter']
-    },
-    herbs: {
-      name: 'Herbs & Spices',
-      subcategories: ['Ginger', 'Garlic', 'Coriander', 'Basil', 'Mint', 'Parsley']
-    },
-    machinery: {
-      name: 'Farm Machinery',
-      subcategories: ['Tractors', 'Harvesters', 'Plows', 'Irrigation Systems', 'Tillers']
-    },
-    equipment: {
-      name: 'Farm Equipment',
-      subcategories: ['Hand Tools', 'Seeds', 'Fertilizers', 'Pesticides', 'Storage Equipment']
-    }
+  // Load categories and commodities from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/commodities?includeCategories=true');
+        const result = await response.json();
+        
+        if (result.success) {
+          setCategories(result.data);
+        } else {
+          toast.error('Failed to load categories');
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        toast.error('Failed to load categories');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchCategories();
+  }, []);
+
+  // Transform categories for the old format compatibility
+  const getCategoryOptions = () => {
+    return categories.map(category => ({
+      id: category.id,
+      key: category.name.toLowerCase().replace(/[^a-z0-9]/g, ''),
+      name: category.name,
+      subcategories: category.commodities?.map(c => c.name) || []
+    }));
   };
 
   const units = ['kg', 'tonnes', 'bags', 'pieces', 'bunches', 'liters', 'crates', 'boxes'];
@@ -250,9 +247,9 @@ export default function ListNewProduct() {
                             }}
                             className="input"
                           >
-                            <option value="">Select a category</option>
-                            {Object.entries(categories).map(([key, cat]) => (
-                              <option key={key} value={key}>
+                            <option value="">{loading ? 'Loading categories...' : 'Select a category'}</option>
+                            {getCategoryOptions().map((cat) => (
+                              <option key={cat.id} value={cat.id}>
                                 {cat.name}
                               </option>
                             ))}
@@ -272,12 +269,22 @@ export default function ListNewProduct() {
                             className="input"
                             disabled={!values.category}
                           >
-                            <option value="">Select a subcategory</option>
-                            {values.category && categories[values.category]?.subcategories.map((sub) => (
-                              <option key={sub} value={sub}>
-                                {sub}
-                              </option>
-                            ))}
+                            <option value="">
+                              {!values.category 
+                                ? 'Select category first' 
+                                : loading 
+                                ? 'Loading commodities...' 
+                                : 'Select a subcategory'
+                              }
+                            </option>
+                            {values.category && getCategoryOptions()
+                              .find(cat => cat.id === values.category)
+                              ?.subcategories.map((sub) => (
+                                <option key={sub} value={sub}>
+                                  {sub}
+                                </option>
+                              ))
+                            }
                           </select>
                           {touched.subcategory && errors.subcategory && (
                             <p className="mt-1 text-sm text-red-500">{errors.subcategory}</p>
