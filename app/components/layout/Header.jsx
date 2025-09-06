@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FiMenu, 
@@ -10,7 +10,11 @@ import {
   FiShoppingCart, 
   FiTrendingUp,
   FiPhone,
-  FiChevronDown
+  FiChevronDown,
+  FiSettings,
+  FiLogOut,
+  FiTrendingUp as FiBarChart3,
+  FiShield
 } from 'react-icons/fi';
 import Button from '../ui/Button';
 import { cn } from '../../lib/utils';
@@ -19,7 +23,11 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState('');
+  const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +37,116 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Check authentication status
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        setLoading(true);
+        
+        // Check for admin token first
+        const adminToken = localStorage.getItem('admin_token');
+        if (adminToken) {
+          const response = await fetch('/api/auth/admin/verify', {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            if (data.success) {
+              setUser({
+                email: data.admin.email,
+                name: data.admin.name || 'Admin',
+                type: 'admin',
+                role: data.admin.role
+              });
+              setLoading(false);
+              return;
+            }
+          }
+        }
+        
+        // Check for regular user token (implement when you have user auth)
+        const userToken = localStorage.getItem('user_token');
+        if (userToken) {
+          // TODO: Add user verification endpoint
+          // const response = await fetch('/api/auth/user/verify', {
+          //   headers: { 'Authorization': `Bearer ${userToken}` }
+          // });
+          // Handle user auth when implemented
+        }
+        
+        // No valid token found
+        setUser(null);
+        setLoading(false);
+        
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        setUser(null);
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [pathname]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (accountDropdownOpen && !event.target.closest('[data-dropdown]')) {
+        setAccountDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [accountDropdownOpen]);
+
+  // Logout function
+  const handleLogout = async () => {
+    try {
+      if (user?.type === 'admin') {
+        await fetch('/api/auth/admin/logout', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('admin_token')}`
+          }
+        });
+        localStorage.removeItem('admin_token');
+      } else {
+        // TODO: Handle user logout when user auth is implemented
+        localStorage.removeItem('user_token');
+      }
+      
+      setUser(null);
+      setAccountDropdownOpen(false);
+      router.push('/');
+      
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Force logout on error
+      localStorage.removeItem('admin_token');
+      localStorage.removeItem('user_token');
+      setUser(null);
+      router.push('/');
+    }
+  };
+
+  // Get dashboard URL based on user type
+  const getDashboardUrl = () => {
+    if (!user) return '/';
+    
+    switch (user.type) {
+      case 'admin':
+        return '/admin/market-updates';
+      case 'farmer':
+        return '/dashboard/farmer';
+      case 'buyer':
+        return '/dashboard/buyer';
+      default:
+        return '/';
+    }
+  };
 
   const navigation = [
     {
@@ -175,22 +293,94 @@ const Header = () => {
               ))}
             </nav>
 
-            {/* Auth Buttons */}
+            {/* Auth Section */}
             <div className="hidden lg:flex items-center space-x-4">
-              <Link
-                href="/auth/login"
-                className="text-sm font-medium text-gray-700 hover:text-green-600 transition-colors duration-200"
-              >
-                Login
-              </Link>
-              <Button
-                size="sm"
-                onClick={() => {
-                  window.location.href = '/auth/register';
-                }}
-              >
-                Get Started
-              </Button>
+              {loading ? (
+                <div className="w-8 h-8 bg-gray-200 animate-pulse rounded-full"></div>
+              ) : user ? (
+                /* Account Dropdown */
+                <div className="relative" data-dropdown>
+                  <button
+                    onClick={() => setAccountDropdownOpen(!accountDropdownOpen)}
+                    className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors duration-200 p-2 rounded-lg hover:bg-gray-100"
+                  >
+                    <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                      {user.type === 'admin' ? <FiShield className="w-4 h-4" /> : user.name.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="hidden md:block">{user.name}</span>
+                    <FiChevronDown className={`w-4 h-4 transition-transform ${accountDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {accountDropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50"
+                      >
+                        <div className="px-4 py-3 border-b border-gray-200">
+                          <p className="text-sm text-gray-900 font-medium">{user.name}</p>
+                          <p className="text-xs text-gray-500">{user.email}</p>
+                          {user.type === 'admin' && (
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">
+                              <FiShield className="w-3 h-3 mr-1" />
+                              Admin
+                            </span>
+                          )}
+                        </div>
+                        
+                        <Link
+                          href={getDashboardUrl()}
+                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                          onClick={() => setAccountDropdownOpen(false)}
+                        >
+                          <FiBarChart3 className="w-4 h-4 mr-3" />
+                          {user.type === 'admin' ? 'Market Updates' : 'Dashboard'}
+                        </Link>
+                        
+                        {user.type !== 'admin' && (
+                          <Link
+                            href={`/dashboard/${user.type}/settings`}
+                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                            onClick={() => setAccountDropdownOpen(false)}
+                          >
+                            <FiSettings className="w-4 h-4 mr-3" />
+                            Settings
+                          </Link>
+                        )}
+                        
+                        <button
+                          onClick={handleLogout}
+                          className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                        >
+                          <FiLogOut className="w-4 h-4 mr-3" />
+                          Sign out
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                /* Login/Register Buttons */
+                <>
+                  <Link
+                    href="/auth/login"
+                    className="text-sm font-medium text-gray-700 hover:text-green-600 transition-colors duration-200"
+                  >
+                    Login
+                  </Link>
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      window.location.href = '/auth/register';
+                    }}
+                  >
+                    Get Started
+                  </Button>
+                </>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -311,19 +501,76 @@ const Header = () => {
                 ))}
                 
                 <div className="pt-6 border-t border-gray-200 space-y-4">
-                  <Link
-                    href="/auth/login"
-                    className="block w-full text-center py-2 text-base font-medium text-gray-700 hover:text-green-600 transition-colors duration-200"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Login
-                  </Link>
-                  <Button 
-                    className="w-full justify-center"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Get Started
-                  </Button>
+                  {loading ? (
+                    <div className="w-full h-10 bg-gray-200 animate-pulse rounded-lg"></div>
+                  ) : user ? (
+                    /* Mobile Account Section */
+                    <div className="space-y-4">
+                      <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                        <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold">
+                          {user.type === 'admin' ? <FiShield className="w-5 h-5" /> : user.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-gray-900">{user.name}</p>
+                          <p className="text-xs text-gray-500">{user.email}</p>
+                          {user.type === 'admin' && (
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">
+                              <FiShield className="w-3 h-3 mr-1" />
+                              Admin
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <Link
+                        href={getDashboardUrl()}
+                        className="flex items-center w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors rounded-lg hover:bg-gray-100"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <FiBarChart3 className="w-4 h-4 mr-3" />
+                        {user.type === 'admin' ? 'Market Updates' : 'Dashboard'}
+                      </Link>
+                      
+                      {user.type !== 'admin' && (
+                        <Link
+                          href={`/dashboard/${user.type}/settings`}
+                          className="flex items-center w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors rounded-lg hover:bg-gray-100"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <FiSettings className="w-4 h-4 mr-3" />
+                          Settings
+                        </Link>
+                      )}
+                      
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setIsOpen(false);
+                        }}
+                        className="flex items-center w-full px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors rounded-lg"
+                      >
+                        <FiLogOut className="w-4 h-4 mr-3" />
+                        Sign out
+                      </button>
+                    </div>
+                  ) : (
+                    /* Mobile Login/Register Buttons */
+                    <>
+                      <Link
+                        href="/auth/login"
+                        className="block w-full text-center py-2 text-base font-medium text-gray-700 hover:text-green-600 transition-colors duration-200"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Login
+                      </Link>
+                      <Button 
+                        className="w-full justify-center"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Get Started
+                      </Button>
+                    </>
+                  )}
                 </div>
               </nav>
             </motion.div>
