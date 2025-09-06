@@ -16,8 +16,9 @@ async function main() {
     return;
   }
 
-  // Hash the admin password
-  const hashedPassword = await bcrypt.hash('F@RmN3t@dmin25', 12);
+  // Hash the admin password from environment variable
+  const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+  const hashedPassword = await bcrypt.hash(adminPassword, 12);
 
   // Create admin user
   const admin = await prisma.admin.create({
@@ -67,7 +68,7 @@ async function main() {
   console.log('✅ Sample market data created');
   console.log('🎉 Database seeding completed!');
   console.log('📧 Admin Email: admin@farmnet.com');
-  console.log('🔑 Admin Password: admin123');
+  console.log('🔑 Admin Password:', adminPassword);
 }
 
 main()

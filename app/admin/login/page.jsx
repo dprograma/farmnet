@@ -150,7 +150,7 @@ export default function AdminLogin() {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     placeholder="admin@farmnet.com"
-                    className={`w-full pl-12 pr-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors ${formik.touched.email && formik.errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
+                    className={`w-full pl-12 pr-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-neutral-900 bg-white placeholder-neutral-500 ${formik.touched.email && formik.errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
                   />
                 </div>
                 {formik.touched.email && formik.errors.email && (
@@ -176,7 +176,7 @@ export default function AdminLogin() {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     placeholder="Enter your password"
-                    className={`w-full pl-12 pr-12 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors ${formik.touched.password && formik.errors.password ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
+                    className={`w-full pl-12 pr-12 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-neutral-900 bg-white placeholder-neutral-500 ${formik.touched.password && formik.errors.password ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
                   />
                   <button
                     type="button"
